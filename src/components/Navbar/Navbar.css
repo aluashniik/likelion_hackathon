@@ -1,0 +1,42 @@
+/* 네비바 하단 고정 밑 세로 길이 설정 */
+.navbar {
+    position: fixed;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 5vh;
+    background-color: #D9D9D9;
+    box-shadow: 0 0px 10px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  /* nav태그 아래의 자식들을 수평정렬하기 위한 설정 */
+  nav {
+    overflow: hidden;
+  }
+  .nav-link {
+    float: left;
+    width: 25%;
+    text-align: center;  
+    text-decoration: none;
+    color: #333333;
+    /* height: 50px; */
+    /* line-height: 50px; */
+  }
+
+  .nav-link:hover{
+    color: #333333;
+  }
+  
+  /* .nav-item {
+    color: rgba(128, 128, 128, 0.623);
+  }
+  
+  .active-nav-item {
+    color: black;
+  } */
