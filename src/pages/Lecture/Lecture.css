@@ -1,3 +1,66 @@
 .lecture-content{
-    padding: 10rem 1.3rem 9.6rem 1.3rem;
+    padding: 8.8rem 1.4rem 10rem 1.4rem;
+    display: flex;
+    flex-direction: column;
+    color: var(--text-primary);
+}
+
+.lecture-board{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+    margin: 1.5rem 0 1.2rem 0;
+}
+
+.lecture-board h2{
+    font-size: 2.3rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.lecture-board button{
+    background-color: white;
+    border: solid 0.1rem var(--text-primary);
+    border-radius: 1rem;
+    display: flex;
+    padding: 0.5rem 1rem;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.7rem;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.lecture-board button:hover{
+    background-color: rgba(223, 223, 223, 0.705);
+    transition: 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+.staff-ask h2{
+    font-size: 2.3rem;
+    font-weight: 600;
+    padding: 0 1rem;
+    margin: 2rem 0 1.2rem 0;
+}
+
+.staff-info{
+    display: flex;
+    border-radius: 1rem;
+    background-color: #EBEBEB;
+    padding: 1.2rem;
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    font-size: 1.9rem;
+    /* font-family: 'Pretendard'; */
+    font-weight: 400;
+    gap: 0.5rem;
+}
+
+.staff-info p{
+    padding: 0;
+    margin: 0;
 }

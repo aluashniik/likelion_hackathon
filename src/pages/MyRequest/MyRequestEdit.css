@@ -1,0 +1,172 @@
+.myrequest-edit{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.myrequest-edit-container{
+    margin-top: 10rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 87%;
+    padding: 0 1.2rem 2rem 1.2rem;
+    gap: 0.5rem;
+    flex-shrink: 0;
+    border-radius: 1rem;
+    border: 1px dashed #F5C6AA;
+    background: var(--brand-quaternary);
+}
+
+.myrequest-edit-container h1{
+    font-size: 2.5rem;
+    margin: 1.2rem 0;
+    font-weight: 600;
+}
+
+.myrequest-edit-container form{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 0.5rem;
+}
+
+.myrequest-edit-container form input{
+    display: flex;
+    width: 22.9rem;
+    padding: 0.8rem 0.9rem;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 0.5rem;
+    border: 1px solid rgba(245, 198, 170, 0.65);
+    background: #FFF;
+}
+
+.myrequest-edit-container form p{
+    color: #343434;
+    font-size: 1.6rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 2.4rem;
+}
+
+.myrequest-edit-container h3{
+    margin: 0;
+    font-size: 1.7rem;
+}
+
+.myrequest-edit-device{
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-bottom: 0.5rem;
+}
+
+
+.myrequest-select-device{
+    display: flex;
+    justify-content: space;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.myrequest-device-btn{
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: rgba(52, 52, 52, 0.50);
+}
+
+.myrequest-device-btn:hover{
+    cursor: pointer;
+    color: var(--brand-secondary);
+    transition: 0.2s ease-in;
+}
+
+.myrequest-device-btn.selected {
+    transition: none;
+    color: var(--brand-secondary);
+    font-weight: 600;
+}
+  
+.myrequest-device-btn::before {
+    content: "○";
+    margin-right: 0.3rem;
+}
+  
+.myrequest-device-btn.selected::before {
+    content: "●";
+    color: var(--brand-secondary);
+}
+
+.myrequest-edit-title{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1rem;
+}
+
+.myrequest-edit-content{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1rem;
+}
+
+.myrequest-edit-location{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1rem;
+}
+
+.myrequest-edit-time{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1rem;
+}
+
+.myrequest-edit-photo{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1rem;
+}
+
+.myrequest-edit-photo input:hover{
+    cursor: pointer;
+}
+
+.myrequest-edit-finish{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 3.5rem 0;
+}
+
+.myrequest-edit-finish button{
+    display: flex;
+    width: 24.4rem;
+    padding: 1rem 2rem 0.8rem 2rem;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    border-radius: 2rem;
+    background: #333;
+    color: #FFF;
+    font-size: 2rem;
+    font-weight: 600;
+    border: none;
+}
+
+.myrequest-edit-finish button:hover{
+    cursor: pointer;
+    background: #141414;
+    transition: 0.2s ease-in-out;
+}

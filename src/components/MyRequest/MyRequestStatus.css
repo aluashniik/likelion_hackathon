@@ -1,0 +1,23 @@
+.status {
+    display: flex;
+    padding: 0.3rem 1rem;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    border-radius: 1rem;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.status.pending{
+    background: #D9D9D9;
+}
+
+.status.accepted{
+    background: #B0E8C0;
+}
+
+.status.in-progress{
+    background: #FFDE5C;
+}

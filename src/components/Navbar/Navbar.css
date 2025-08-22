@@ -9,11 +9,11 @@
     right: 0;
     background-color: #ffffff;
     box-shadow: 0 0 1.3rem rgba(117, 117, 117, 0.2);
-    max-width: 39rem;
+    max-width: 37rem;
     height: 9.3rem;
     margin-left: auto;
     margin-right: auto;
-    border-top: solid 0.1rem black;
+    border-top: solid 0.2rem D4D4D4;
   }
   
   /* nav태그 아래의 자식들을 수평정렬하기 위한 설정 */
@@ -33,7 +33,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 1rem;
+    gap: 0.4rem;
   }
 
   .nav-link p{
@@ -43,13 +43,13 @@
 
   .nav-link:hover{
     /* color: #ffffff; */
-    background-color: rgba(141, 141, 141, 0.269);
+    background-color: rgba(255, 239, 230, 0.269);
     transition: 0.2s ease-in-out;
   }
 
   .icon{
-    width: 4rem;
-    height: 4rem;
+    width: 4.7rem;
+    height: 4.7rem;
     margin: 0;
   }
   
