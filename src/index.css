@@ -111,7 +111,8 @@ body {
 .lecture-detail,
 .myrequest-progress,
 .myrequest,
-.myrequest.junior{
+.myrequest.junior,
+.myrequest-progress.review{
   margin-left: auto;
   margin-right: auto;
   min-height: 100vh;
@@ -132,6 +133,25 @@ body {
 img, video {
   max-width: 100%;
   height: auto;
+}
+
+.myrequest-block{
+  display: flex;
+  padding: 1.6rem;
+  width: 100%;
+  flex-direction: column;
+  align-items: flex-start;
+  border-radius: 1rem;
+  border: 1px solid var(--brand-primary);
+  background: var(--brand-quaternary);
+  color: var(--text-primary);
+  gap: 1rem;
+}
+
+.myrequest-block:hover{
+  cursor: pointer;
+  background: #f9ece6;
+  transition: 0.2s ease-in-out;
 }
 
 /* 색상 팔레트 정해지면 세팅..? */
