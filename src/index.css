@@ -1,4 +1,11 @@
 @font-face {
+  font-family: "Pretendard";
+  font-weight: 45 920;
+  font-style: normal;
+  font-display: swap;
+  src: url("../assets/fonts/PretendardVariable.woff2") format("woff2");
+}
+/* @font-face {
 	font-family: 'Pretendard';
 	font-weight: 900;
 	font-display: swap;
@@ -59,10 +66,10 @@
 	font-weight: 100;
 	font-display: swap;
 	src: local('Pretendard Thin'), url(./woff2-subset/Pretendard-Thin.subset.woff2) format('woff2'), url(./woff-subset/Pretendard-Thin.subset.woff) format('woff');
-}
+} */
 html{
   font-size: 62.5%;
-  font-family: 'Pretendard';
+  font-family: 'Pretendard', sans-serif;
 }
 
 html{
@@ -72,7 +79,7 @@ html{
 body {
   margin:0;
   padding: 0;
-  font-family: 'Pretendard';
+  font-family: 'Pretendard', sans-serif;
   background-color: rgb(188, 188, 188);
   -ms-overflow-style: none;
 }
@@ -83,7 +90,7 @@ body {
 .lecture,
 .myrequest,
 .list,
-.request
+.request,
 .sign-up,
 .request,
 .signup-form,
@@ -124,6 +131,7 @@ body {
 
 :root {
   --vh: 100%;
+  font-family: 'Pretendard', sans-serif;
 }
   
 ::-webkit-scrollbar {

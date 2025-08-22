@@ -1,5 +1,10 @@
+.lecture-list{
+    width: 100%;
+}
+
 .lecture-item{
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    width: 100%;
 }
