@@ -92,7 +92,7 @@ body {
   margin-right: auto;
   min-height: 100vh;
   max-height: auto;
-  max-width: 37rem;
+  max-width: 39rem;
   height: calc(var(--vh, 1vh) * 100);
   background-color: #f7f7f7;
 }
@@ -102,7 +102,7 @@ body {
   margin-right: auto;
   min-height: 100vh;
   max-height: auto;
-  max-width: 37rem;
+  max-width: 39rem;
   height: calc(var(--vh, 1vh) * 100);
 }
 
@@ -117,7 +117,7 @@ body {
   min-height: 100vh;
   max-height: auto;
   height: auto;
-  max-width: 37rem;
+  max-width: 39rem;
   background-color: rgb(255, 255, 255);
 }
 
