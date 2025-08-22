@@ -1,0 +1,63 @@
+.lecture-wrapper{
+    border-radius: 1rem;
+    background-color: #EBEBEB;
+    padding: 1.2rem;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.8rem;
+    color: var(--text-primary);
+}
+
+.lecture-wrapper:hover{
+    cursor: pointer;
+    background-color: #e3e3e3;
+    transition: 0.2s ease-in-out;
+}
+
+.lecture-main{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.lecture-title {
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.lecture-status{
+    background: #F5C6AA;
+    border-radius: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    padding: 0.4rem 0.8rem;
+    font-size: 1.7rem;
+    font-weight: 400;
+    color: #000;
+}
+
+.lecture-status.close{
+    background: #a6a6a6;
+    border-radius: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    padding: 0.4rem 0.8rem;
+    font-size: 1.7rem;
+    font-weight: 400;
+}
+
+.lecture-info{
+    display: flex;
+    font-size: 1.9rem;
+    /* font-family: 'Pretendard'; */
+    font-weight: 400;
+    gap: 1rem;
+}
+
+

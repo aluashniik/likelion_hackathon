@@ -77,7 +77,7 @@ export default function MyPage(){
   return (
     <div className='hr-page'>
       <div className='app-shell'>
-      <Header title = "내 정보" divider/>
+      <Header title={'내 정보'}/>  
       <main className='mp-content'>
 
         <div className='mp-head'>
@@ -103,11 +103,12 @@ export default function MyPage(){
               <button key={m.key} className="mp-item" onClick={()=>nav(m.to + (params.get('role') ? `?role=${params.get('role')}`:''))}>
                 <span>{m.label}</span><span className="chev">›</span>
               </button>
+
             ))} 
         </nav>
       </main>
-      <Navbar/>
     </div>
-    </div>
+    <Navbar />
+  </div>
   );
-}
+};

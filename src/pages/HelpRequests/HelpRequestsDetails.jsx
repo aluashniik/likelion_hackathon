@@ -90,7 +90,7 @@ export default function HelpRequestsDetails() {
   return (
     <div className="hr-page">
       <div className="app-shell">
-        <Header title="도움 요청 상세" divider />
+        <Header title={'도움 요청 상세'}/>  
         <main className="hrd_content">
           <h2 className="shl-h2">상세 요청 내용</h2>
           <section className="hrd_card">

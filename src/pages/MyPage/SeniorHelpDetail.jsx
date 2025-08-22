@@ -56,7 +56,7 @@ export default function SeniorHelpDetail() {
   return (
     <div className="hr-page">
       <div className="app-shell">
-        <Header title="내 정보" divider />
+        <Header title={'내 정보'}/>  
         <main className="hrd-content">
         <h2 className="shl-h2">도움 신청 내역</h2>
           <section className="hrd_card">

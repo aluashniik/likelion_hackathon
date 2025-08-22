@@ -30,7 +30,7 @@ export default function ChatComplete() {
   return (
     <div className="hr-page">
       <div className="app-shell">
-        <Header title="나의 요청글 확인" divider />
+        <Header title={'나의 요청글 확인'}/>  
         <main className="cm-content">
           <h2 className="cm-title">요청글이 등록되었어요!</h2>
 

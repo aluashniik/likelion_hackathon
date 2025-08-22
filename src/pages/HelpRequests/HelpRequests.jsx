@@ -100,7 +100,7 @@ export default function HelpRequests() {
   return (
     <div className="hr-page">
       <div className="app-shell">
-        <Header title="도움 요청 목록" divider />
+      <Header title={'도움 요청 목록'}/>  
         <main className="hr-content">
           <div className="hr-search">
             <img className="hr-search-icon" src={vector} alt="vector"/>

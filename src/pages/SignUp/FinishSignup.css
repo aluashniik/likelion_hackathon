@@ -1,0 +1,74 @@
+.finish-signup h2{
+    padding: 13rem 3.5rem 3rem 3.5rem;
+    font-size: 2.2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.logo-icon{
+    width: 13.2rem;
+    height: 13.2rem;
+    flex-shrink: 0;
+    border-radius: 3rem;
+    box-shadow: -2px -2px 4px 0 rgba(245, 198, 170, 0.20), 4px 4px 10px 0 rgba(245, 198, 170, 0.40);
+    margin: 9.8rem 0 7rem 0;
+}
+
+.login-box{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    gap: 1rem;
+}
+
+.login-box input{
+    display: flex;
+    width: 75%;
+    padding: 1rem 1rem 1rem 1.5rem;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    border-radius: 1rem;
+    background: #ECECEC;
+    border: none;
+    color: var(--text-primary);
+    font-size: 1.8rem;
+    font-weight: 500;
+}
+
+.login-btn{
+    display: flex;
+    width: 81.76%;
+    padding: 1rem 1rem 1rem 1.5rem;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    border-radius: 1rem;
+    background: var(--button-primary);
+    border: none;
+    color: #000;
+    font-size: 1.9rem;
+    font-weight: 700;
+    box-shadow: 1px 3px 4px 0 rgba(92, 92, 92, 0.259);
+}
+
+.login-btn:hover{
+    background: #ff8037;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+}
+
+.login h3{
+    margin-top: 5rem;
+    margin-bottom: 1rem;
+}
+
+.logo-cont{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 10rem;
+}

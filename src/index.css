@@ -1,9 +1,68 @@
 @font-face {
-  font-family: 'Pretendard-Regular';
-  src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-  font-weight: 400;
-  font-style: normal;
-  /* regular 400 medium 500 bold 700 */
+	font-family: 'Pretendard';
+	font-weight: 900;
+	font-display: swap;
+	src: local('Pretendard Black'), url(./woff2-subset/Pretendard-Black.subset.woff2) format('woff2'), url(./woff-subset/Pretendard-Black.subset.woff) format('woff');
+}
+
+@font-face {
+	font-family: 'Pretendard';
+	font-weight: 800;
+	font-display: swap;
+	src: local('Pretendard ExtraBold'), url(./woff2-subset/Pretendard-ExtraBold.subset.woff2) format('woff2'), url(./woff-subset/Pretendard-ExtraBold.subset.woff) format('woff');
+}
+
+@font-face {
+	font-family: 'Pretendard';
+	font-weight: 700;
+	font-display: swap;
+	src: local('Pretendard Bold'), url(./woff2-subset/Pretendard-Bold.subset.woff2) format('woff2'), url(./woff-subset/Pretendard-Bold.subset.woff) format('woff');
+}
+
+@font-face {
+	font-family: 'Pretendard';
+	font-weight: 600;
+	font-display: swap;
+	src: local('Pretendard SemiBold'), url(./woff2-subset/Pretendard-SemiBold.subset.woff2) format('woff2'), url(./woff-subset/Pretendard-SemiBold.subset.woff) format('woff');
+}
+
+@font-face {
+	font-family: 'Pretendard';
+	font-weight: 500;
+	font-display: swap;
+	src: local('Pretendard Medium'), url(./woff2-subset/Pretendard-Medium.subset.woff2) format('woff2'), url(./woff-subset/Pretendard-Medium.subset.woff) format('woff');
+}
+
+@font-face {
+	font-family: 'Pretendard';
+	font-weight: 400;
+	font-display: swap;
+	src: local('Pretendard Regular'), url(./woff2-subset/Pretendard-Regular.subset.woff2) format('woff2'), url(./woff-subset/Pretendard-Regular.subset.woff) format('woff');
+}
+
+@font-face {
+	font-family: 'Pretendard';
+	font-weight: 300;
+	font-display: swap;
+	src: local('Pretendard Light'), url(./woff2-subset/Pretendard-Light.subset.woff2) format('woff2'), url(./woff-subset/Pretendard-Light.subset.woff) format('woff');
+}
+
+@font-face {
+	font-family: 'Pretendard';
+	font-weight: 200;
+	font-display: swap;
+	src: local('Pretendard ExtraLight'), url(./woff2-subset/Pretendard-ExtraLight.subset.woff2) format('woff2'), url(./woff-subset/Pretendard-ExtraLight.subset.woff) format('woff');
+}
+
+@font-face {
+	font-family: 'Pretendard';
+	font-weight: 100;
+	font-display: swap;
+	src: local('Pretendard Thin'), url(./woff2-subset/Pretendard-Thin.subset.woff2) format('woff2'), url(./woff-subset/Pretendard-Thin.subset.woff) format('woff');
+}
+html{
+  font-size: 62.5%;
+  font-family: 'Pretendard';
 }
 
 html{
@@ -13,8 +72,9 @@ html{
 body {
   margin:0;
   padding: 0;
-  font-family: 'Pretendard-Regular';
+  font-family: 'Pretendard';
   background-color: rgb(188, 188, 188);
+  -ms-overflow-style: none;
 }
 
 .home,
@@ -23,7 +83,11 @@ body {
 .lecture,
 .myrequest,
 .list,
-.request{
+.request
+.sign-up,
+.request,
+.signup-form,
+.finish-signup{
   margin-left: auto;
   margin-right: auto;
   min-height: 100vh;
@@ -33,9 +97,37 @@ body {
   background-color: #f7f7f7;
 }
 
+.cancel-modal{
+  margin-left: auto;
+  margin-right: auto;
+  min-height: 100vh;
+  max-height: auto;
+  max-width: 37rem;
+  height: calc(var(--vh, 1vh) * 100);
+}
+
+.lecture,
+.full-lecture,
+.lecture-detail,
+.myrequest-progress,
+.myrequest,
+.myrequest.junior{
+  margin-left: auto;
+  margin-right: auto;
+  min-height: 100vh;
+  max-height: auto;
+  height: auto;
+  max-width: 37rem;
+  background-color: rgb(255, 255, 255);
+}
+
 :root {
   --vh: 100%;
 }
+  
+::-webkit-scrollbar {
+   display: none;
+ }
 
 img, video {
   max-width: 100%;
@@ -72,3 +164,24 @@ img, video {
   --icon-quaternary: #c2c4c8;
   --icon-brand: #0066ff; */ 
 /* } */
+
+/* 색상 팔레트 */
+:root {
+  /* Text */
+  --text-primary: #333333;
+  --text-secondary: #fff;
+  --text-tertiary: #717171;
+  --text-quaternary:#C3C3C3;
+
+  /* Brand Color */
+  --brand-primary: #F5C6AA;
+  --brand-secondary: #F88C3E;
+  --brand-tertiary: #D9D9D9;
+  --brand-quaternary:#FFF8F4;
+
+  /* Button Color */
+  --button-primary: #FF9C61;
+  --button-secondary: #FFA874;
+  --button-tertiary: #939393;
+  --button-quaternary: #E6E6E6;
+}

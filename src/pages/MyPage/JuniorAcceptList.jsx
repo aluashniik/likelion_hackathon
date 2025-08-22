@@ -99,7 +99,7 @@ export default function JuniorAcceptList() {
   return (
     <div className="hr-page">
       <div className="app-shell">
-        <Header title="내 정보" divider />
+        <Header title={'내 정보'}/>  
         <main className="shl-content">
           <h2 className="shl-h2">도움 수락 내역</h2>
           <div className="shl-list">

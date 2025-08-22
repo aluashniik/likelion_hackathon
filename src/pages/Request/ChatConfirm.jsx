@@ -139,7 +139,8 @@ export default function ChatConfirm() {
   return (
     <div className="hr-page">
       <div className="app-shell">
-        <Header title="채팅 내용 정리" divider />
+        <Header title={'채팅 내용 정리'}/>  
+        
         <main className="cc-content">
           <h2 className="cc-title">요청 내용을 확인해주세요!</h2>
           <p className="cc-smalltitle">

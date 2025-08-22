@@ -7,7 +7,7 @@ export default function ContactPage(){
   return (
     <div className="cp-page">
       <div className="app-shell">
-        <Header title="내 정보" divider />
+      <Header title={'내 정보 '}/>    
         <main className="cp-content">
           <h2 className="cp-title">운영진 문의</h2>
           <p className='cp-desc'>

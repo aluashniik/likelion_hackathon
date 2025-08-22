@@ -182,7 +182,8 @@ export default function Chat() {
   return (
     <div className="hr-page">
       <div className="app-shell chat-shell">
-        <Header title="채팅" divider />
+        <Header title={'채팅'}/>  
+        
         <main ref={listRef} className="chat-content">
           <div className="chat-date">{formatTodayTitle()}</div>
           {loading ? (

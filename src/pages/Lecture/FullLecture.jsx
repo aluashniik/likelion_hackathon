@@ -1,0 +1,44 @@
+import Header from '../../components/Header/Header'
+import SearchBar from '../../components/SearchBar/SearchBar'
+import Navbar from '../../components/Navbar/Navbar'
+import './FullLecture.css'
+import filter_icon from '../../assets/filter_icon.png'
+import lectures from '../../utils/lectures'
+
+import React from 'react'
+import { useState } from 'react'
+import LectureList from '../../components/Lecture/LectureList'
+
+const FullLecture = () => {
+
+  const [filterState, setFilterState]=useState('all');
+
+
+  const filterOpen = () => {
+    return [...lectures].filter((lecture)=>lecture.status === 'open')
+  }
+
+  const openLectures = filterOpen();
+  const lectureShown = filterState === 'all' ? lectures : openLectures;
+  
+  return (
+    <div className='full-lecture'>
+        <Header title={'수업'}/>
+        <div className="lecture-elements">
+            <SearchBar/>
+            <button className='filter-btn' onClick={() => 
+                setFilterState(filterState === 'all' ? 'open' : 'all')
+            }>
+                <img src={filter_icon} alt="" />
+                <p>
+                    {filterState === 'all' ? '모집 중인 수업만 보기' : '전체 수업 보기'}
+                </p>
+            </button>
+            <LectureList lectures={lectureShown}/>
+        </div>
+        <Navbar/>
+    </div>
+  )
+}
+
+export default FullLecture

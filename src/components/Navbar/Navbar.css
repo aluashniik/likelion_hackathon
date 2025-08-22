@@ -34,7 +34,9 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 1rem;
+
+    gap: 1rem; 
+    /* or 0.4 */
   }
 
   .nav-link p{
@@ -49,8 +51,8 @@
   }
 
   .icon{
-    width: 4rem;
-    height: 4rem;
+    width: 4.7rem;
+    height: 4.7rem;
     margin: 0;
   }
   

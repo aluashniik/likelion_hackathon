@@ -129,7 +129,7 @@ export default function EditProfile() {
   return (
     <div className="hr-page">
       <div className="app-shell">
-        <Header title="내 정보" divider />
+      <Header title={'내 정보'}/>    
         <main className="ep-content">
           <h2 className="ep-title">프로필 수정하기</h2>
           

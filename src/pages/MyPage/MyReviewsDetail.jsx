@@ -69,7 +69,7 @@ export default function MyReviewsDetail() {
   return (
     <div className="hr-page">
       <div className="app-shell">
-        <Header title="내 정보" divider />
+        <Header title={'내 정보'}/>  
         <main className="mrd-content">
         <div className="mrd-header"></div>
         <h2 className="mrd-h2">후기 상세</h2>
