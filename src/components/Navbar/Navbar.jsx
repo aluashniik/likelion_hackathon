@@ -1,11 +1,10 @@
 import React from 'react'
 import './Navbar.css'
-
-import { useNavigate, useLocation, Link } from 'react-router-dom'
-import class_icon from '../../assets/class_icon.png'
-import home_icon from '../../assets/home_icon.png'
-import mypage_icon from '../../assets/mypage_icon.png'
-import myreq_icon from '../../assets/myreq_icon.png'
+import { useLocation, Link } from 'react-router-dom'
+import class_icon from '../../assets/class_or.png'
+import home_icon from '../../assets/home_or.png'
+import mypage_icon from '../../assets/my_or.png'
+import myreq_icon from '../../assets/myreq_or.png'
 import class_light from '../../assets/lecture_light.png'
 import home_light from '../../assets/home_light.png'
 import my_light from '../../assets/my_light.png'
@@ -54,3 +53,4 @@ const Navbar = () => {
 }
 
 export default Navbar
+
