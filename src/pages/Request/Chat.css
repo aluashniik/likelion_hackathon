@@ -1,0 +1,152 @@
+.chat-shell{
+  position: relative;
+  max-width:39rem;
+  margin:0 auto;
+  background:#fff;
+}
+
+/* 헤더 아래(8.2rem) ~ 컴포저 위(6.4rem) 사이를 스크롤 영역으로 */
+.chat-content{
+  position:absolute;
+  top:8.2rem;
+  bottom:6.4rem;
+  left:0; right:0;
+  overflow:auto;
+  -webkit-overflow-scrolling:touch;
+  padding:1.2rem 1.2rem 1.2rem;
+  background:#fff;
+}
+
+/* 오늘 날짜 라벨 */
+.chat-date{
+  text-align:left;
+  font-size:1.3rem;
+  color:#000000;
+  padding:0.8rem 0 0.5rem;
+  margin-left: 0.8rem;
+  /* border-bottom:0.1rem solid #000; *//
+}
+
+/* 말풍선 정렬 */
+.chat-row{ 
+    display:flex; 
+    margin:0.6rem;
+}
+.chat-row.bot{ 
+    /* justify-content:flex-start;  */
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.chat-row.me{ 
+    justify-content:flex-end; 
+}
+
+.chat-bubble{
+    /* 입력이 너무 길면 말풍선 튀어나오는 문제 있음 -> 해결됐음*/
+  max-width:min(28rem, calc(100% - 3.2rem));
+  overflow-wrap: anywhere;
+  word-break:break-word;
+  white-space:pre-wrap;
+  border-radius:0.8rem;
+  padding:0.9rem 1.1rem;
+  font-size:1.5rem;
+  line-height:1.45;
+  background:#fff; 
+}
+.chat-qr{
+    display: flex;
+    flex-wrap: wrap;
+    gap:0.6rem;
+    margin-top: 0.6rem;
+}
+.chat-qr-btn{
+    border: 0.1rem solid #252424;
+    border-radius: 1.2rem;
+    background: #ffe3d2;
+    border: 0.1rem solid #FF8C38;
+    padding: 0.6rem 0.9rem;
+    font-size: 1.3rem;
+    line-height: 1.2rem;
+    cursor: pointer;
+    box-shadow: 0 0.2rem 0.6rem rgba(0,0,0,.06);
+}
+.chat-qr-btn:active{ transform:translateY(0.1rem); }
+.chat-row.me .chat-bubble{ 
+  background:#90F0AB; 
+  border:0.1rem solid #22A648;
+}
+
+.chat-row.bot .chat-bubble{
+  border:0.1rem solid #063C48;
+}
+
+/* 하단 입력 컴포저 (고정) */
+.chat-composer{
+  position:fixed;
+  left:50%; transform:translateX(-50%);
+  bottom:0;
+  width:100%; max-width:39rem;
+  display:flex; align-items:center; gap:0.8rem;
+  padding:0.8rem 1.2rem calc(0.8rem + env(safe-area-inset-bottom));
+  background:#e1e1e1;
+  border-top:0.1rem solid #e5e5e5;
+  height:6.4rem;
+  box-sizing:border-box;
+}
+
+.chat-attach{ 
+  flex:0 0 auto;
+  width:3.6rem; height:3.6rem;
+  border-radius:50%;
+  border:0.1rem solid #ddd;
+  background:#fff;
+  cursor:pointer;
+  font-size:3rem;
+  color: #f88c3e;
+  display:flex; align-items:center; justify-content:center;
+}
+.chat-send{
+  flex:0 0 auto;
+  width:3.6rem; height:3.6rem;
+  border-radius:30%;
+  border:0.1rem solid #ddd;
+  background:#fff;
+  cursor:pointer;
+  font-size:2.4rem;
+  color: #f88c3e;
+  display:flex; align-items:center; justify-content:center;   
+}
+
+.chat-composer textarea{
+  flex:1 1 auto;
+  min-height:2.5rem; max-height:9.6rem;
+  border:0.1rem solid #ddd;
+  border-radius:1.6rem;
+  padding:0.9rem 1.2rem;
+  resize:none; outline:none;
+  font-size:1.5rem; line-height:1.7;
+  box-shadow:0 0.2rem 0.8rem rgba(0,0,0,.06);
+}
+
+/* 채팅창에 첨부된 이미지 스타일 */
+.chat-image {
+  max-width: 15rem; 
+  width: 100%;
+  display: block;
+}
+
+/* 내가 보낸 이미지 메시지 버블은 배경색과 패딩을 없앰 */
+.chat-row.me .chat-bubble:has(.chat-image) {
+  background-color: transparent;
+  padding: 0;
+  border: 0;
+}
+
+.send-icon {
+  width: 2rem;
+  height: 2rem; 
+  display: block; 
+}
+
+

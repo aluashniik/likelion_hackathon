@@ -1,0 +1,72 @@
+ /* 1rem = 10px */
+
+.Button {
+  display: flex;
+  flex-direction: column;
+  width: 25rem;
+  min-height: 20rem;
+  text-align: center;
+  border: 0;
+  border-radius: 2rem;
+  box-shadow: 0 0.8rem 1.6rem rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+}
+
+
+/* 아이콘 + 글씨 묶음 */
+.Button_inner {
+   display: flex;
+  flex-direction: column; 
+  align-items: center;      
+  justify-content: center;
+  gap: 1.2rem; /* 간격 조정 */
+}
+
+/* 아이콘 */
+.Button_icon {
+  width: 8rem;
+  height: 7rem;
+  object-fit: contain;
+  padding-top: 1rem;
+}
+
+/* 텍스트 영역 */
+.Button_texts {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* 큰 제목 */
+.Button_title {
+  font-size: 2.6rem;
+  font-weight: 800;
+  color: #111;
+  line-height: 1.25;
+}
+
+/* 설명 */
+.Button_desc {
+  font-size: 1.86rem;
+  color: #444;
+  white-space: pre-line;
+}
+
+/* 타입별 배경색 */
+.Button_request {            
+  background: #fff;
+  border: 3px solid #f5c6aa;
+  height: 18rem;
+}     
+
+.Button_list {              
+  background: #ff8c3b;
+  border: 3px solid #fff;
+  height: 18rem;
+}
+
+.Button_list .Button_title,
+.Button_list .Button_desc {
+  color: #fff;
+}

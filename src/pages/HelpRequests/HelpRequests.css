@@ -1,0 +1,138 @@
+/* .hr-page{
+  min-height:10rem;
+  background: rgb(188, 188, 188);
+  display:flex;
+  justify-content:center;
+}
+
+.app-shell{
+  width:100%;
+  max-width:39rem;
+  min-height:10rem;
+  background:#fff;
+  box-shadow: 0 0.6rem 2.8rem rgba(0,0,0,.08);
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+} */
+
+.hr-content{
+  flex:1;
+  /* padding: 10rem 1.6rem 8.8rem; */
+  display:flex;
+ flex-direction:column; 
+ align-items:center;
+  gap:1.2rem;
+}
+
+.hr-search{
+  width:100%;
+  max-width:36rem;
+  position:relative;
+  margin: 0.4rem auto 0.8rem;
+  box-sizing: border-box;
+}
+
+.hr-search input{
+  width:100%;
+  box-sizing: border-box;
+  height:4.4rem;
+  border-radius:1.2rem;
+  border:0.1rem solid #e6e6e6;
+  outline:none;
+  padding:0 3.4rem 0 3.8rem;
+  background:#fff;
+  box-shadow: 0 0.4rem 1rem rgba(0,0,0,.06);
+  font-size:1.4rem;
+}
+
+.hr-search-icon{
+  position:absolute; 
+  left:1.2rem; 
+  top:50%;
+  transform:translateY(-50%);
+  font-size:1.6rem;
+}
+.hr-clear{
+  position:absolute;
+  right:0.8rem; top:50%; transform:translateY(-50%);
+  border:0; background:transparent; font-size:1.8rem; cursor:pointer; 
+}
+
+.hr-list{ width:100%; max-width:36rem; display:flex; flex-direction:column; gap:1.2rem; }
+.hr-card{
+  width:100%; text-align:left; background:#fff;
+  border:0; border-radius:1.6rem;
+  box-shadow: 0 0.8rem 1.6rem rgba(0,0,0,.08), 0 0.2rem 0.6rem rgba(0,0,0,.05);
+  padding:1.4rem 1.6rem; cursor:pointer;
+}
+.hr-card-title{ font-weight:800; color:#1a1a1a; margin-bottom:0.8rem; line-height:1.3; }
+.hr-meta{ list-style: disc; margin:0; padding-left:1.8rem; color:#444; }
+.hr-meta li{ margin:0.2rem 0; }
+.hr-meta b{ font-weight:700; margin-right:0.6rem; }
+
+/* 페이지 기본: 스크롤바 생겨도 레이아웃 안 밀리게 */
+html, body{
+  height:100%;
+  margin:0;
+  scrollbar-gutter: stable both-edges; /* 크롬/엣지/파폭 최신 */
+}
+
+/* 배경 래퍼 */
+.hr-page{
+  min-height:100svh;             /* 원래대로 복구 */
+  background: rgb(188, 188, 188);
+  display:flex;
+  justify-content:center;
+  /* 필요 시 항상 스크롤바 유지하려면 다음 한 줄로 대체:
+  overflow-y: scroll;
+  */
+}
+
+/* 가운데 앱 패널(고정 폭, 항상 중앙) */
+.app-shell{
+  width:100%;
+  max-width:39rem;
+  min-height:100svh;             /* 원래대로 복구 */
+  margin:0 auto;                  /* 중앙 정렬 보강 */
+  background:#fff;
+  box-shadow: 0 0.6rem 2.8rem rgba(0,0,0,.08);
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+}
+
+/* 내용 영역: 내부 스크롤 */
+.hr-content{
+  flex:1;
+  padding: 10rem 1.6rem 8.8rem;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:1.2rem;
+  background:#fff;
+  overflow:auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* 검색바(이전 메시지에서 제안한 box-sizing 유지) */
+.hr-search{
+  width:100%;
+  max-width:36rem;
+  position:relative;
+  margin: 0.4rem auto 0.8rem;
+  box-sizing: border-box;
+}
+.hr-search input{
+  width:100%;
+  box-sizing: border-box;
+  height:4.4rem;
+  border-radius:1.2rem;
+  border:0.1rem solid #e6e6e6;
+  outline:none;
+  padding:0 3.4rem 0 3.8rem;
+  background:#fff;
+  box-shadow: 0 0.4rem 1rem rgba(0,0,0,.06);
+  font-size:1.4rem;
+}
+

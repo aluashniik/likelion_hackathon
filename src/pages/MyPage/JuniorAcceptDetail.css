@@ -1,0 +1,115 @@
+.jad-content {
+  padding: 10rem 1.6rem 8.8rem;
+  background: #f7f7f7;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.jad-title {
+  font-weight: 800;
+  margin: 0 0 1.2rem;
+}
+.jad-h2 { 
+    font-size:2.2rem;
+    font-weight:800;
+    margin: 1rem 1.1rem 1.6rem; 
+}
+.jad-title { 
+    font-size: 1.8rem; 
+}
+
+/* 후기 카드 */
+.jad-review-card {
+  background: #fff;
+  border-radius: 1.2rem;
+  border: 1px solid #eee;
+  box-shadow: 0 0.8rem 1.6rem rgba(0,0,0,.08), 0 0.2rem 0.6rem rgba(0,0,0,.05);
+  padding: 1.4rem;
+  min-height: 6rem;
+  margin-bottom: 2rem;
+}
+
+.jad-meta {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.jad-meta li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+  margin-top: 0.8rem;
+  position: relative;
+  padding-left: 1.4rem;
+}
+
+.jad-meta li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  top: 0.05em;
+  font-weight: bold;
+}
+.jad-meta b {
+  font-weight: 700;
+  flex-shrink: 0;
+  width: 4rem;
+}
+
+.jad-no-review {
+  font-size: 1.4rem;
+  color: #888;
+  text-align: center;
+  padding: 2rem 0;
+}
+
+/* 별점 스타일 */
+.star-rating { display: inline-flex; }
+.star { font-size: 1.6rem; line-height: 1; }
+.star-filled { color: #FFC107; }
+.star-empty { color: #E0E0E0; }
+
+/* 도움 요청글 카드 */
+.jad-request-card {
+  background: #fff;
+  border-radius: 1.2rem;
+  border: 1px solid #eee;
+  box-shadow: 0 0.8rem 1.6rem rgba(0,0,0,.05);
+  padding: 1.6rem;
+}
+
+.jad-dl {
+  margin: 0;
+  font-size: 1.5rem; /* 💡 글씨 크기 키우기 */
+}
+
+.jad-dl .row {
+  display: grid;
+  grid-template-columns: 9rem 1fr; 
+  gap: 1rem;
+  align-items: start;
+  padding: 0.8rem 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+.jad-dl .row:last-child {
+  border-bottom: 0;
+}
+
+.jad-dl dt {
+  font-weight: 700;
+  color: #222;
+}
+
+.jad-dl dd {
+  margin: 0;
+  color: #333;
+  line-height: 1.5;
+}
+
+.jad-attach { 
+  max-width: 7rem; 
+  border-radius: 0.8rem; 
+}

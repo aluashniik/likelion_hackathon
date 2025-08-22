@@ -1,0 +1,92 @@
+.hrd_content {
+  flex: 1;
+  padding: 11rem 1.4rem 8.8rem; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;  
+  gap: 1.6rem;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  background: #fff;
+}
+
+.shl-h2 {
+  font-size: 2.2rem;
+  font-weight: 800;
+  align-self: flex-start;       
+}
+
+/* 카드 */
+.hrd_card {
+  width: 100%;
+  max-width: 33rem;       /* 모바일 기준 중앙 카드 */
+  background: #fff;
+  border-radius: 1.6rem;
+  box-shadow: 0 0.8rem 1.8rem rgba(0,0,0,.08), 0 0.2rem 0.6rem rgba(0,0,0,.05);
+  padding: 1.6rem;
+}
+
+.hrd_title {
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin: 0 0 1.2rem 0;
+  color: #1a1a1a;
+}
+
+/* 메타 영역 */
+.hrd_meta {
+  font-size: 1.4rem;
+  margin: 0;
+}
+.hrd_meta .row {
+  display: grid;
+  grid-template-columns: 10rem 1fr; /* 라벨/값 */
+  gap: 1rem;
+  align-items: start;
+  padding: 0.6rem 0;
+  border-bottom: 0.1rem solid #f0f0f0;
+}
+.hrd_meta .row:last-child {
+  border-bottom: 0;
+}
+
+.hrd_meta dt {
+  font-weight: 700;
+  color: #222;
+}
+.hrd_meta dd {
+  margin: 0;
+  color: #333;
+  line-height: 1.5;
+}
+
+/* 첨부파일 */
+.hrd-attach {
+  width: 100%;
+  max-width: 7rem;
+  border-radius: 0.8rem;
+  display: block;
+}
+
+/* 버튼 */
+.hrd-ct {
+  display: block;
+  width: 100%;
+  max-width: 24rem;      /* 버튼 고정폭 */
+  height: 4.7rem;
+  border: 0;
+  border-radius: 1.2rem;
+  background: #f7b79a;   /* 임시색 */
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #222;
+  box-shadow: 0 0.4rem 1rem rgba(0,0,0,.06);
+  cursor: pointer;
+  /* margin-top: 1rem; */
+  margin-bottom: 2rem;
+}
+.hrd-ct.accepted{
+  background: #D9D9D9;
+  cursor: default;
+}
+

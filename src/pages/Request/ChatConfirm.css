@@ -1,0 +1,243 @@
+/* 컨테이너 카드 */
+.cc-content{
+  margin: 10.5rem 1.4rem 8.8rem;
+  padding: 1.6rem;
+  background-color: #fff8f4;                     
+  border: 0.17rem dashed #f4b899;         
+  border-radius:1.2rem;                
+  box-shadow:0 0.8rem 1.6rem rgba(0,0,0,.08);
+  display:block;  
+}
+
+/* 타이틀/보조문구 */
+.cc-title{
+  margin:0 0 0.4rem 0;
+  font-size:2.4rem;     
+  font-weight:800;
+  color:#1a1a1a;
+}
+.cc-smalltitle{
+  margin:0 0 1.2rem 0;
+  font-size:1.5rem;
+  color:#555;
+  line-height:1.5;
+}
+
+/* 기기 선택 */
+.cc-field.device {
+  display: flex; 
+  flex-direction: column; 
+  align-items: flex-start; 
+  gap: 1rem; 
+}
+
+/* 라디오 옵션들 가로 배치 */
+.cc-radios{ 
+    display:flex; 
+    gap:1.6rem; 
+    align-items:center; 
+}
+
+/* 커스텀 라디오 */
+.cc-radio{
+  position:relative;
+  display:inline-flex; 
+  align-items:center; 
+  gap:0.6rem;
+  cursor:pointer; 
+  user-select:none;
+  font-size:1.6rem; 
+  font-weight:700;
+  white-space: nowrap;
+  word-break: keep-all;
+}
+.cc-radio input{ 
+    position:absolute; 
+    opacity:0; 
+    inset:0; 
+    pointer-events:none; 
+    overflow-wrap: anywhere;
+    word-break:break-word;
+    white-space:pre-wrap;
+}
+
+/* 점(○/●) */
+.cc-radio::before{
+  content:"";
+  width:1rem; height:1rem;
+  border-radius:50%;
+  border:0.1rem solid #bdbdbd;   /* 회색 ○ */
+  display:inline-block;
+}
+.cc-radio.on::before{
+  background:#f7915d;            /* 주황 ● */
+  border-color:#f7915d;
+}
+
+/* 텍스트 색 */
+.cc-radio span{ 
+    color:#9b9b9b; 
+}
+.cc-radio.on span{ 
+    color:#f7915d; 
+}
+
+.cc-chips{ 
+    gap:0.6rem; 
+    margin:0.4rem 0 0.8rem; 
+    flex-wrap:wrap; 
+}
+
+.chip{
+  border:0.1rem solid #eee;
+  background:#f6f6f6;
+  color:#333;
+  border-radius:1.2rem;
+  padding:0.6rem 1rem;
+  font-size:1.rem;
+  cursor:pointer;
+}
+
+.chip.on{
+  border-color:#f7b79a;
+  background:#fff;
+  color:#f7915d;
+  font-weight:700;
+}
+
+
+.cc-field{
+  display:grid;
+  grid-template-columns: 9rem 1fr auto;   
+  align-items:center;
+  gap:0.8rem;
+  padding:0.6rem 0;
+  border-bottom:0.1rem solid #f3f3f3;
+  overflow-wrap: anywhere;
+  word-break:break-word;
+  white-space:pre-wrap;
+}
+.cc-field:last-child{ 
+    border-bottom:0; 
+}
+
+.cc-field label{
+  font-size:1.4rem;
+  font-weight:700;
+  color:#222;
+}
+
+
+.cc-field input,
+.cc-field textarea,
+.cc-field input[type="datetime-local"]{
+  width:100%;
+  background:#f6f6f6;
+  border:0.1rem solid #f4b899;
+  border-radius:1.0rem;
+  padding:0.9rem 1.2rem;
+  font-size:1.4rem;
+  outline:none;
+  box-sizing:border-box;
+}
+.cc-field textarea{
+  min-height:5.2rem;
+  resize:vertical;
+}
+
+.cc-edit{
+   border:0.1rem solid #ddd; 
+   background:#fff; 
+   border-radius:1rem;
+   padding:0.6rem 1rem; 
+   font-size:1.3rem; 
+   white-space:nowrap; cursor:pointer;
+}
+.cc-presubmit{ 
+    margin:1.2rem 0; 
+    font-size:1.6rem; 
+    color:#444; 
+    line-height:1.5; 
+}
+
+.cc-submit{
+  width:20rem; 
+  margin-left: 6.2rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  height:4.8rem; 
+  border:0; 
+  border-radius:1.8rem;
+  background:#1a1a1a; 
+  color:#fff; 
+  font-weight:700; 
+  font-size:1.6rem; 
+  cursor:pointer;
+  box-shadow:0 0.4rem 1rem rgba(0,0,0,.06);
+}
+
+/* 첨부파일 필드 레이아웃 */
+.cc-field.attachments {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 4.5rem;
+  padding: 1.2rem 0;
+}
+
+.cc-attachments-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+}
+
+/* 첨부된 이미지 아이템 */
+.cc-attachment-item {
+  position: relative;
+  width: 7rem;
+  height: 7rem;
+}
+
+.cc-attachment-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0.8rem;
+  border: 1px solid #ddd;
+}
+
+/* 삭제 버튼 */
+.cc-attachment-remove {
+  position: absolute;
+  top: -0.5rem;
+  right: -0.5rem;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  border: 1px solid #fff;
+  background-color: #555;
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+/* 추가 버튼 */
+.cc-attachment-add {
+  width: 7rem;
+  height: 7rem;
+  border-radius: 0.8rem;
+  border: 2px dashed #ccc;
+  background-color: #f7f7f7;
+  color: #aaa;
+  font-size: 3rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

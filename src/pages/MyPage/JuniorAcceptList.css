@@ -1,0 +1,76 @@
+.shl-content{
+  padding: 10rem 1.6rem 8.8rem;
+  background:#fff;
+}
+
+/* 도움 신청 내역*/
+.shl-h2{
+  font-size:2.2rem;
+  font-weight:800;
+  /* margin:0 0 1.2rem 0; */
+  margin: 1rem 1.1rem 1.6rem;
+}
+
+.shl-list{
+  display:flex;
+  flex-direction:column;
+  gap:1.0rem;
+}
+
+/* 카드 */
+.shl-card{
+  position:relative;
+  background:#fff;
+  border-radius:1.2rem;
+  border:0.1rem solid #eee;
+  box-shadow: 0 0.8rem 1.8rem rgba(0,0,0,.08), 0 0.2rem 0.6rem rgba(0,0,0,.05);
+  padding:1.2rem 1.2rem 1.2rem;
+}
+
+/* 상태 배지 */
+.shl-badge{
+  position:absolute;
+  top:.8rem; left:.8rem;
+  display:inline-block;
+  padding:.4rem .8rem;
+  border-radius:1.2rem;
+  font-size:1.3rem;
+  font-weight:500;
+}
+
+.badge-waiting{ background:#b0e8c0; color: #000; } /* 수락 완료 */
+.badge-done   { background:#d9d9d9; color:#000}  /* 도움 완료 */
+
+
+.shl-title{
+  margin:2.7rem 0 .6rem; /* 배지 공간 확보 */
+  font-size:2rem;
+  font-weight:800;
+  line-height:1.35;
+  color:#1a1a1a;
+}
+
+.shl-meta{
+  margin:0 0 .8rem 0;
+  padding-left:1.2rem;
+  color:#333;
+  font-size:1.5rem;
+}
+.shl-meta li{ margin:.2rem 0; }
+.shl-meta b{ font-weight:700; margin-right:.4rem; }
+
+/* 우측 하단 '자세히 보기' */
+.shl-detail{
+  margin-left:auto;
+  display:block;
+  min-width: 13rem;
+  border:0;
+  background:#e6e6e6;
+  color:#151515;
+  padding:.6rem 1.0rem;
+  border-radius:1.2rem;
+  font-size:1.3rem;
+  box-shadow:0 .2rem .6rem rgba(0,0,0,.05) inset;
+  cursor:pointer;
+}
+.shl-detail:active{ transform:translateY(.1rem); }

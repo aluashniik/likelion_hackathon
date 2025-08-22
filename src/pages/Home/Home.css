@@ -1,3 +1,54 @@
-home{
-    height: 100%;
+ .home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 80vh;
+}
+
+.home-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100%;
+  /* padding-top:6rem; */
+  gap: 2rem;
+  padding-top: 5.8rem;
+}
+
+.logo{
+  width: 100%;
+  max-width: 7rem;
+}
+
+/* 로딩/에러 상태 */
+.home-status {
+  font-size: 14px;
+  color: #666;
+}
+.home-status.error {
+  color: red;
+}
+
+/* 서버에서 받은 액션 버튼 그룹 */
+.home-actions {
+  display: flex;
+  flex-direction: column;
+}
+
+/* guest 전용 */
+.home-guest {
+  /* margin-top: 1px; */
+  text-align: center;
+  font-size: 14px;
+  color: #555;
+}
+
+.home-header {
+  width: 100%;
+  background: #fff;       /* 흰색 배경 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1em 0;       
 }

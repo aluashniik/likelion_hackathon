@@ -1,0 +1,126 @@
+.cm-content{
+  margin: 10.5rem 1.4rem 8.8rem;
+  padding: 1.6rem;
+  background-color: #fff8f4;
+  border: 0.17rem dashed #f4b899;
+  border-radius: 1.2rem;
+  box-shadow: 0 0.8rem 1.6rem rgba(0,0,0,.08);
+  min-height: calc(93svh - 10.5rem - 8.8rem);
+}
+
+.cm-title{
+    font-size:2.4rem;     
+    font-weight:800;
+    color:#1a1a1a;
+}
+.cm-card{
+    padding: 1rem;
+    margin-bottom: 3.4rem;
+    background-color: #fff;
+    border: 0.17rem solid #f4b899;
+    border-radius: 1.2rem;
+}
+
+.cm-ttl{
+    font-size: 2rem;
+    margin: 0 0 1.2rem;
+    overflow-wrap: anywhere;
+    word-break:break-word;
+    white-space:pre-wrap;
+}
+
+.cm-meta {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.2rem;
+  font-size: 1.5rem;
+}
+
+.cm-meta li {
+  position: relative;
+  padding-left: 1.2rem;
+  margin-bottom: 0.6rem;
+}
+
+.cm-meta li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  top: 0.05em;
+  font-weight: bold;
+}
+
+.cm-meta b {
+  font-weight: 700;
+  margin-right: 0.8rem;
+}
+
+
+.cm-desc{
+    font-size: 1.8rem;
+    overflow-wrap: anywhere;
+    word-break:break-word;
+    white-space:pre-wrap;
+}
+
+.cm-attach {
+  display: block;
+  max-width: 8rem;
+  width: 100%;
+  border-radius: 0.8rem;
+  margin-top: 1.2rem;
+}
+.cm-btn{
+  width:20rem; 
+  margin-left: 6.2rem;
+  height:3.6rem; 
+  border:0; 
+  border-radius:1.8em;
+  background:#ff9c61; 
+  color:#fff; 
+  font-weight:700; 
+  font-size:1.6rem; 
+  cursor:pointer;
+  box-shadow:0 0.4rem 1rem rgba(0,0,0,.06);
+}
+
+.cm-btn2{
+  margin-top: 1.1rem;
+  width:20rem; 
+  margin-left: 6.2rem;
+  height:3.6rem; 
+  border:0; 
+  border-radius:1.8em;
+  background:#1a1a1a; 
+  color:#fff; 
+  font-weight:700; 
+  font-size:1.6rem; 
+  cursor:pointer;
+  box-shadow:0 0.4rem 1rem rgba(0,0,0,.06);
+  margin-bottom: 2rem;
+} 
+
+/*AI 안내 문구*/
+.cm-ai-notice {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 5px;
+  margin-left: 1px;
+  font-size: 1.1rem;
+  color: #6d6d6d;
+}
+
+.cm-ai-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.4rem;
+  height: 1.4rem;
+  border-radius: 50%;
+  background-color: #f0f0f0;
+  color: #999;
+  font-style: italic;
+  font-weight: bold;
+  line-height: 1;
+}

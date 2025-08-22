@@ -6,6 +6,10 @@
   /* regular 400 medium 500 bold 700 */
 }
 
+html{
+  font-size: 62.5%;
+}
+
 body {
   margin:0;
   padding: 0;
@@ -16,14 +20,17 @@ body {
 .home,
 .mypage,
 .login,
+.lecture,
 .myrequest,
+.list,
 .request{
   margin-left: auto;
   margin-right: auto;
   min-height: 100vh;
   max-height: auto;
-  max-width: 400px;
-  background-color: rgb(255, 255, 255);
+  max-width: 39rem;
+  height: calc(var(--vh, 1vh) * 100);
+  background-color: #f7f7f7;
 }
 
 :root {
@@ -34,3 +41,34 @@ img, video {
   max-width: 100%;
   height: auto;
 }
+
+/* 색상 팔레트 정해지면 세팅..? */
+/* :root { */
+  /* Text */
+  /* --text-primary: #171719;
+  --text-secondary: #37383c;
+  --text-tertiary: #878a93;
+  --text-quaternary: #c2c4c8;
+  --text-brand: #0066ff;
+  --text-brand-invert: #ffffff;
+  --text-negative: #ff4242; */
+
+  /* Background */
+  /* --background-primary: #ffffff;
+
+  /* Button */
+  /* --button-primary:  #F5C6AA;
+  --button-disable: #f4f4f5; */
+
+  /* Line */
+  /* --line-primary: #70737c38;
+  --line-secondary: #70737c29;
+  --line-brand: #0066ff; */
+
+  /* Icon */
+  /* --icon-primary: #171719;
+  --icon-secondary: #37383c;
+  --icon-tertiary: #878a93;
+  --icon-quaternary: #c2c4c8;
+  --icon-brand: #0066ff; */ 
+/* } */

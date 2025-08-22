@@ -6,9 +6,22 @@ import MyPage from './pages/MyPage/MyPage'
 import Chat from './pages/Request/Chat'
 import ChatComplete from './pages/Request/ChatComplete'
 import ChatConfirm from './pages/Request/ChatConfirm'
+import HelpRequests from './pages/HelpRequests/HelpRequests'
+import HelpRequestsDetails from './pages/HelpRequests/HelpRequestsDetails'
 import { Route, Routes, BrowserRouter } from 'react-router-dom'
 import { useEffect } from 'react'
-
+import SeniorHelpList from './pages/MyPage/SeniorHelpList'
+import ContactAdmin from './pages/MyPage/ContactAdmin'
+import JuniorAcceptList from './pages/MyPage/JuniorAcceptList'
+//import  ClassOpenedList  from './pages/MyPage/ClassOpenedList'
+//import ClassOpenedDetail from './pages/MyPage/ClassOpenedDetail'
+//import ClassAppliedList from './pages/MyPage/ClassAppliedList'
+//import ClassAppliedDetail from './pages/MyPage/ClassAppliedDetail'
+import  MyReviews  from './pages/MyPage/MyReviews'
+import SeniorHelpDetail from './pages/MyPage/SeniorHelpDetail'
+import EditProfile from './pages/MyPage/EditProfile'
+import MyReviewsDetail  from './pages/MyPage/MyReviewsDetail'
+import JuniorAcceptDetail from './pages/MyPage/JuniorAcceptDetail'
 
 const App = () => {
 
@@ -31,7 +44,7 @@ const App = () => {
 		};
 	}, []);
 
-  console.log('fdd');
+  //console.log('fdd');
   return (
     <BrowserRouter>
       <Routes>
@@ -42,6 +55,29 @@ const App = () => {
         <Route path='/request/chat' element={<Chat/>}/>
         <Route path='/request/chatcomplete' element={<ChatComplete/>}/>
         <Route path='/request/chatconfirm' element={<ChatConfirm/>}/>
+        
+        {/* **************************** */}
+        <Route path="/list" element={<HelpRequests/>}/>
+        <Route path="/list/details" element={<HelpRequestsDetails/>}/>
+
+        <Route path="mypage/help-requests" element={<SeniorHelpList/>}/>
+        <Route path="mypage/help-requests/:id" element={<SeniorHelpDetail/>}/>
+
+        <Route path="mypage/accepted-requests" element={<JuniorAcceptList/>}/>
+        <Route path="mypage/accepted-requests/:id" element={<JuniorAcceptDetail/>}/>
+
+        {/* <Route path="/mypage/class-opened" element={<ClassOpenedList/>} />
+        <Route path="/mypage/class-opened/:id" element={<ClassOpenedDetail/>} />
+        <Route path="/mypage/class-applied" element={<ClassAppliedList/>} /> 
+        <Route path="/mypage/class-applied/:id" element={<ClassAppliedDetail/>} /> */}
+
+        <Route path= "/mypage/reviews" element={<MyReviews/>}/>
+        <Route path= "/mypage/reviews/:id" element={<MyReviewsDetail/>}/>
+       
+        <Route path="/mypage/contact" element={<ContactAdmin/>}/>
+
+        <Route path="/mypage/edit" element={<EditProfile/>}/>
+
       </Routes>
     </BrowserRouter>
   )

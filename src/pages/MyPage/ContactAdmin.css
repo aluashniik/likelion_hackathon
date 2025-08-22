@@ -1,0 +1,49 @@
+.cp-content{
+  margin: 11rem 2rem 
+}
+
+.cp-title {
+  font-size: 2.4rem;
+  margin-top: 1px;
+  margin-bottom: 1rem;
+}
+
+.cp-desc {
+  font-size: 1.8rem;
+  margin-top: 0.5rem;
+  margin-bottom: 2rem;
+  line-height: 1.5;
+}
+
+.cp-subtitle {
+  margin: 1rem 0;
+  font-size: 2.2rem;
+  font-weight: 600;
+}
+
+.cp-card {
+  background-color: #FFF8F4;
+  border-radius: 1.2rem;
+  font-size: 2.1rem;
+  padding: 1rem;
+  max-height: 8.3rem;
+  padding-top: 1px;
+}
+
+.cp-meta .row {
+  display: flex;
+  /* justify-content: space-between; */
+  margin: 0.5rem 0;
+}
+
+.cp-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5rem;
+}
+
+.cp-logo img {
+  max-width: 12rem;
+  height: auto;
+}
