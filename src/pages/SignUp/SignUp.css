@@ -1,0 +1,69 @@
+.sign-up{
+    background: #F7F7F7;
+}
+
+.signup-age{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 11rem 5.5rem 0 5.5rem;
+    gap: 2rem;
+}
+
+.signup-age h1{
+    color: var(--text-primary);
+    font-family: Pretendard;
+    font-size: 2.7rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.signup-age h3{
+    margin: 0 0 0.7rem 0;
+}
+
+.signup-age button{
+    display: inline-flex;
+    padding: 4rem 0;
+    width: 23rem;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 2rem;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+}
+
+.select-age.senior{
+    margin-top: 1rem;
+    border: 3px solid var(--brand-secondary);
+    background: #FFF;
+}
+
+.select-age.junior{
+    color: #FFF;
+    border: none;
+    background: var(--brand-secondary);
+}
+
+.select-age.junior h1{
+    color: #FFF;
+}
+
+.select-age:hover{
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+}
+
+.select-age.senior:hover{
+    background: #ffeddf;
+}
+
+.select-age.junior:hover{
+    background: #f5761a;
+}
+
+.small-logo{
+    width: 7rem;
+    height: 7rem;
+    margin-top: 4rem;
+}

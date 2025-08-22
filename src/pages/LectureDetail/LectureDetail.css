@@ -1,0 +1,116 @@
+/* .lecture-detail{
+    padding: 10rem 0 10rem 0;
+    display: flex;
+    flex-direction: column;
+} */
+
+.lecture-detail-full{
+    padding: 10.5rem 2rem 13rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    color: var(--text-primary);
+    gap: 1rem;
+}
+
+.lecture-detail-img{
+    width: 36rem;
+    height: 20.3rem;
+    flex-shrink: 0;
+    border-radius: 1rem;
+    object-fit: cover;
+    margin-bottom: 2rem;
+}
+
+.lecture-status{
+    background: #F5C6AA;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1rem;
+    border: none;
+    font-size: 1.7rem;
+    font-weight: 400;
+    padding: 0.4rem 0.8rem;
+}
+
+.lecture-status{
+    background: #F5C6AA;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1rem;
+    border: none;
+    font-size: 1.7rem;
+    font-weight: 400;
+    padding: 0.4rem 0.8rem;
+}
+
+.lecture-status.close{
+    background: #a6a6a6;
+    padding: 0.4rem 1.3rem;
+    color: #000;
+}
+
+
+.lecture-detail-full h1{
+    font-size: 2.4rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.lecture-table{
+    font-size: 1.9rem;
+    font-weight: 400;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 0;
+}
+
+ul.lecture-table{
+    padding-left: 3rem;
+}
+
+.lecture-table span{
+    font-weight: 600;
+}
+
+.lecture-timetable{
+    list-style: none;
+    padding: 0;
+}
+
+.lecture-regist{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 1.5rem;
+}
+
+.lecture-regist button{
+    display: flex;
+    width: 24.2rem;
+    padding: 1rem;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    background: var(--brand-primary);
+    border-radius: 1rem;
+    border: none;
+    color: #000;
+    font-family: Pretendard;
+    font-size: 1.9rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.lecture-regist button:hover{
+    cursor: pointer;
+}
+
+.lecture-regist.closed button{
+    background: var(--brand-tertiary);
+}

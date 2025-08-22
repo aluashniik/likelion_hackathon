@@ -1,0 +1,92 @@
+.search-bar{
+    width: 100%;
+    margin-top: 3rem;
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1.5rem;
+}
+  
+.search-input {
+    width: 100%;
+    border: solid 0.1rem var(--text-primary);
+    border-radius: 1rem;
+    color: var(--text-primary);
+    padding: 0.7rem 0 0.7rem 4.5rem;
+    font-size: 1.8rem;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+}
+  
+.search-icon {
+    position: absolute;
+    left: 1.8rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1.6rem;
+    height: 1.6rem;
+}
+  
+.delete-btn {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 2.5rem;
+    height: 2.5rem;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+.delete-btn:disabled{
+    opacity: 0;
+    cursor: default;
+}
+
+.delete-icon {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 2.5rem;
+    height: 2.5rem;
+    cursor: pointer;
+    background: none;
+    border: none;
+}
+
+[type="search"] {
+    appearance: textfield;
+}
+
+[type="search"]::placeholder {
+    color: var(--text-tertiary);
+}
+
+[type="search"]::-webkit-search-cancel-button,
+[type="search"]::-webkit-search-results-button {
+    display: none;
+}
+
+.delete-icon::before,
+.delete-icon::after {
+    content: "";
+    position: absolute;
+    width: 0.6em;
+    height: 2px;
+    background: #fff;
+    top: calc(50% - 1px);
+    left: calc(50% - 0.3em);  
+}
+.delete-icon::after {
+    transform: rotateZ(90deg);
+}
+.delete-icon:disabled {
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+}
