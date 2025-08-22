@@ -13,10 +13,10 @@ import { useEffect } from 'react'
 import SeniorHelpList from './pages/MyPage/SeniorHelpList'
 import ContactAdmin from './pages/MyPage/ContactAdmin'
 import JuniorAcceptList from './pages/MyPage/JuniorAcceptList'
-//import  ClassOpenedList  from './pages/MyPage/ClassOpenedList'
-//import ClassOpenedDetail from './pages/MyPage/ClassOpenedDetail'
-//import ClassAppliedList from './pages/MyPage/ClassAppliedList'
-//import ClassAppliedDetail from './pages/MyPage/ClassAppliedDetail'
+
+import  ClassOpenedList  from './pages/MyPage/ClassOpenedList'
+import ClassAppliedList from './pages/MyPage/ClassAppliedList'
+
 import  MyReviews  from './pages/MyPage/MyReviews'
 import SeniorHelpDetail from './pages/MyPage/SeniorHelpDetail'
 import EditProfile from './pages/MyPage/EditProfile'
@@ -88,10 +88,8 @@ const App = () => {
         <Route path="mypage/accepted-requests" element={<JuniorAcceptList/>}/>
         <Route path="mypage/accepted-requests/:id" element={<JuniorAcceptDetail/>}/>
 
-        {/* <Route path="/mypage/class-opened" element={<ClassOpenedList/>} />
-        <Route path="/mypage/class-opened/:id" element={<ClassOpenedDetail/>} />
+        <Route path="/mypage/class-opened" element={<ClassOpenedList/>} />
         <Route path="/mypage/class-applied" element={<ClassAppliedList/>} /> 
-        <Route path="/mypage/class-applied/:id" element={<ClassAppliedDetail/>} /> */}
 
         <Route path= "/mypage/reviews" element={<MyReviews/>}/>
         <Route path= "/mypage/reviews/:id" element={<MyReviewsDetail/>}/>
