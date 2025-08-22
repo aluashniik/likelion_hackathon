@@ -1,13 +1,13 @@
 .banner{
-    width: 34.2rem;
+    width: 36.2rem;
     height: 15rem;
     margin-bottom: 1rem;
     margin-top: 0.5rem;
 }
 
 .banner-img img{
-    height: 17rem;
-    width: 34.5rem;
+    height: 17.5rem;
+    width: 36.2rem;
     border-radius: 1rem;
     object-fit: cover;
 }
