@@ -1,46 +1,70 @@
 import React from 'react'
 import './MyRequest.css'
-import Header from '../../components/Header/Header'
-import Navbar from '../../components/Navbar/Navbar'
-import { useNavigate } from 'react-router-dom'
-import dum_request from '../../utils/dumRequest'
-import MyRequestStatus from '../../components/MyRequest/MyRequestStatus'
-import MyRequestBlock from '../../components/MyRequest/MyRequestBlock'
+import { useState } from 'react'
+import { useEffect } from 'react'
+import MyRequestSenior from './MyRequestSenior'
+import MyRequestJunior from './MyRequestJunior'
 
 
 const MyRequest = () => {
-  // const navigate = useNavigate();
+  const [requestData, setrequestData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [role, setRole] = useState(null)
 
-  const myrequests = dum_request[0].data.active;
+  useEffect(() => {
+    async function fetchPosts() {
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/request`,
+          {
+            method: "GET",
+            credentials: 'include',
+            headers: {
+              "Content-type": "application/json",
+              // Authorization: `Bearer ${window.localStorage.getItem(
+              //   "accessToken"
+              // )}`,
+            },
+          }
+        );
 
-  return (
-    <div className='myrequest'>
-      <Header title={'요청'}/>
-      <div className="myrequest-content">
-        <div className="myrequest-guide">
-          <h2>요청 진행상황</h2>
-          <h3>나의 요청글을 눌러서</h3>
-          <h3>각각의 요청 진행상황을 확인해보세요!</h3>
-        </div>
-        <div className="myrequest-list">
-          <div className="myrequest-item">
-            {myrequests.map((req) => (
-              <MyRequestBlock key={req.request_id} {...req} requestId={req.request_id} />
-            ))}
-          </div>
-        </div>
-      </div>
-      <Navbar/>
-    </div>
-  )
+        if (!response.ok) {
+          // 401 에러일 경우 로그인 페이지로 리디렉션
+          if (response.status === 401) {
+            console.log("로그인이 필요합니다.");
+            // navigate('/login'); // 필요시 navigate 추가
+          }
+          throw new Error("something went wrong");
+        }
+        const data = await response.json();
+        setrequestData(data.data);
+        setRole(data.data.role);
+      } catch (error) {
+        console.error("Error fetching posts:", error);
+      }finally{
+        setIsLoading(false);
+      }
+    }
+    fetchPosts();
+  }, []);
+
+  if (isLoading) {
+    return <div>loading...</div>;
+  }
+
+  if (role === "senior"){
+    return(
+      <MyRequestSenior myrequests={requestData}/>
+    )
+  }else if(role === "junior"){
+    return(
+      <MyRequestJunior myrequests={requestData}/>
+    )
+  }
 
 }
 
 
 export default MyRequest
-// <div className="myrequest-content none">
-//         {/* 요청 X 상태 */}
-//         <h2>현재 요청한 도움이 없어요!</h2>
-//         {/* 일단은 홈으로 이동하게 해둠 -> 채팅으로 이동? */}
-//         <button className='no-request' onClick={()=>navigate('/')}>도움을 요청하려면 여기를 누르세요!</button>
-//       </div>
+
+

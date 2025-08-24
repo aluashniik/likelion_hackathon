@@ -1,14 +1,14 @@
 import React from 'react'
 import './SignupModal.css'
+import { useNavigate } from 'react-router-dom'
 
 const SignupModal = ({openModal, setOpenModal}) => {
+  const navigate = useNavigate('');
   return (
     <div className='signup-modal'>
         <div className="check-signup-container">
-            <h2>정말 도움을 취소하시겠어요?</h2>
-            <h3>한 번 취소된 도움은<br/>되돌리기 어려워요!</h3>
-            <button className='real-cancel-btn'>네, 취소할게요</button>
-            <button className='no-cancel-btn' onClick={()=>setOpenModal(false)}>아뇨, 취소하지 않을래요</button>
+            <h2>회원가입이<br/>완료되었습니다!</h2>
+            <button className='tohome-btn' onClick={() => navigate('/login')}>로그인하러 가기</button>
         </div>
     </div>
   )
