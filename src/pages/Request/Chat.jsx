@@ -24,7 +24,7 @@ export default function Chat() {
       try {
         setLoading(true);
         //API 연동 부분
-        /*
+        
         const res = await prepareChat();
         if (res.is_success && res.data) {
           setSessionId(res.data.session_id);
@@ -36,24 +36,24 @@ export default function Chat() {
           };
           setMsgs([initialBotMessage]);
         }
-        */
+        
 
         // 목업 초기 메시지
-        const mockInitialMessage = {
-          id: 1, 
-          who: "bot", 
-          t: (
-            <>
-              <strong>안녕하세요!</strong>
-              {"\n무엇을 도와드릴까요?\n도움 요청 기기, 일시, 장소를 알려주세요!\n+ 를 누르면 사진을 첨부할 수 있어요!"}
-            </>
-          ),
-          quickReplies: [
-            "핸드폰 화면 녹화하는 방법을 알려주세요!",
-            "어플을 다운로드 받고싶어요!",
-          ],
-        };
-        setMsgs([mockInitialMessage]);
+        // const mockInitialMessage = {
+        //   id: 1, 
+        //   who: "bot", 
+        //   t: (
+        //     <>
+        //       <strong>안녕하세요!</strong>
+        //       {"\n무엇을 도와드릴까요?\n도움 요청 기기, 일시, 장소를 알려주세요!\n+ 를 누르면 사진을 첨부할 수 있어요!"}
+        //     </>
+        //   ),
+        //   quickReplies: [
+        //     "핸드폰 화면 녹화하는 방법을 알려주세요!",
+        //     "어플을 다운로드 받고싶어요!",
+        //   ],
+        // };
+       // setMsgs([mockInitialMessage]);
         setSessionId("mock_session_123");
 
       } catch (error) {
@@ -82,7 +82,7 @@ export default function Chat() {
     setText("");
 
     //API 연동 부분
-    /*
+    
     try {
       const res = await sendChatMessage(sessionId, userMessageText);
       if (res.is_success && res.data) {
@@ -99,7 +99,7 @@ export default function Chat() {
       const errorMessage = { id: Date.now() + 1, who: 'bot', t: '오류가 발생했습니다.' };
       setMsgs(prev => [...prev, errorMessage]);
     }
-    */
+    
   };
 
   const handleQuickReply = (qrText) => {
@@ -127,10 +127,10 @@ export default function Chat() {
     if (!file) return;
 
     // API 연동 부분
-    /*
+    
     try {
       // 1단계: Presigned URL 요청
-      const presignRes = await getPresignedUrl({
+      const presignRes = await getPresignedURL({
         filename: file.name,
         content_type: file.type,
       });
@@ -163,7 +163,7 @@ export default function Chat() {
       console.error("이미지 첨부 실패:", error);
       alert("이미지 첨부에 실패했습니다.");
     }
-    */
+    
     
     //임시로 선택한 이미지를 미리보기로 보여주는 로직 
     const reader = new FileReader();

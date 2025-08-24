@@ -79,7 +79,7 @@ const App = () => {
         {/* <Route path='/lecture/detail' element={<LectureDetail/>}/> */}
         <Route path='/myrequest' element={<MyRequest/>}/>
         {/* <Route path='/myrequest' element={<ProtecetedMyRequest/>}/> */}
-        <Route path='/myrequest/requestId' element={<MyRequestDetail/>}/>
+        {/* <Route path='/myrequest/requestId' element={<MyRequestDetail/>}/> */}
         <Route path='/myrequest/progress' element={<MyRequestProgress/>}/>
         <Route path='/myrequest/progress/edit' element={<MyRequestEdit/>}/>
         {/* <Route path='/mypage' element={<ProtectedMyPage/>}/> */}

@@ -4,7 +4,6 @@ import Navbar from "../../components/Navbar/Navbar";
 import { useNavigate } from "react-router-dom";
 import "./EditProfile.css";
 import profilephoto from '../../assets/profilephoto.png';
-// 💡 1. 이미지 업로드 API 함수도 import 합니다.
 import { getMyProfile, updateMyProfile, updateMyPassword, updateMyProfileImage } from "../../api/mypage"; 
 
 export default function EditProfile() {

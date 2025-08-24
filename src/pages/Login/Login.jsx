@@ -20,7 +20,7 @@ const Login = () => {
 
     try {
       const formData = new FormData();
-      formData.append("phoneNumber", tel);
+      formData.append("phone_number", tel);
       formData.append("password", password);
 
       const response = await fetch(

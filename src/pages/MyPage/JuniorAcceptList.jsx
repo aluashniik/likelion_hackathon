@@ -6,6 +6,7 @@ import { getMyAcceptedRequests } from '../../api/mypage';
 import "./JuniorAcceptList.css";
 import { formatKoreanDateTime } from '../../utils/date';
 
+/*
 const mock = [
   {
     match_id: 1,
@@ -35,7 +36,7 @@ const mock = [
     rating: 5,
     reviewText: "설명을 잘 합니다 잘 배웠습니다"
   },
-];
+];*/
 
 
 const STATUS ={
@@ -64,7 +65,7 @@ export default function JuniorAcceptList() {
   const navigate = useNavigate();
   
   // API 연동 준비 
-  /*
+  
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -87,9 +88,9 @@ export default function JuniorAcceptList() {
   if (loading) {
     return <div>목록을 불러오는 중...</div>;
   }
-  */
+  
 
-  const list = useMemo(() => mock, []);
+  //const list = useMemo(() => mock, []);
   
   const goDetail = (it) => {
     sessionStorage.setItem("hr:lastItem", JSON.stringify(it));

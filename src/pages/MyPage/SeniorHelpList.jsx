@@ -7,6 +7,7 @@ import "./SeniorHelpList.css";
 import { formatKoreanDateTime } from '../../utils/date';
 
 //목업
+/*
 const mock = [
   {
     match_id: 1,
@@ -29,7 +30,7 @@ const mock = [
     matched_at: "2025-08-07T15:00:00",
     status: 'done' //도움 완료
   },
-];
+];*/
 
 const STATUS ={
   pending :{label: "수락 전", className:"badge-pending"},
@@ -56,7 +57,7 @@ export default function SeniorHelpList() {
   const navigate = useNavigate();
   
   // API 연동 준비
-  /*
+  
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -79,9 +80,9 @@ export default function SeniorHelpList() {
   if (loading) {
     return <div>목록을 불러오는 중...</div>;
   }
-  */
+  
 
-  const list = useMemo(() => mock, []);
+  //const list = useMemo(() => mock, []);
   
   const goDetail = (it) => {
     sessionStorage.setItem("hr:lastItem", JSON.stringify(it));

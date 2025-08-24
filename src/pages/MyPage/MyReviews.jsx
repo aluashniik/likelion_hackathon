@@ -7,6 +7,7 @@ import './MyReviews.css';
 import { formatKoreanDateTime } from '../../utils/date';
 
 // 목업 
+/*
 const mockReviews = [
   {
     id: 1,
@@ -32,7 +33,7 @@ const mockReviews = [
     time: "2025-08-09T14:00:00",
     reviewText: "설명을 잘 합니다 잘 배웠습니다",
   },
-];
+];*/
 
 function StarRating({ rating }) {
   return (
@@ -65,9 +66,14 @@ export default function MyReviews() {
   const navigate = useNavigate();
 
   //////////////
-  /*
+  
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(true);
+  const averageRating = useMemo(() => {
+    if (list.length === 0) return 0;
+    const total = list.reduce((sum, item) => sum + item.rating, 0);
+    return (total / list.length).toFixed(1);
+  }, [list]);
 
   useEffect(() => {
     const fetchReviews = async () => {
@@ -88,15 +94,11 @@ export default function MyReviews() {
   if (loading) {
     return <div>리뷰를 불러오는 중...</div>;
   }
-  */
+  
 
-  const list = useMemo(() => mockReviews, []);
+  //const list = useMemo(() => mockReviews, []);
 
-  const averageRating = useMemo(() => {
-    if (list.length === 0) return 0;
-    const total = list.reduce((sum, item) => sum + item.rating, 0);
-    return (total / list.length).toFixed(1);
-  }, [list]);
+
 
   const goDetail = (item) => {
     sessionStorage.setItem("hr:lastItem", JSON.stringify(item));

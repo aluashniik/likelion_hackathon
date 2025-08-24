@@ -3,14 +3,11 @@ import Header from '../../components/Header/Header';
 import Navbar from '../../components/Navbar/Navbar';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import filter_icon from '../../assets/filter_icon.png';
-import lectures from '../../utils/lectures';
 import LectureList from '../../components/Lecture/LectureList';
+// import lectures from '../../utils/lectures';
 
 export default function ClassAppliedList() {
   const [filterState, setFilterState] = useState('all');
-
-  // API 연동 준비
-  /*
   const [apiLectures, setApiLectures] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -22,6 +19,7 @@ export default function ClassAppliedList() {
           `${import.meta.env.VITE_API_URL}/mypage/class`,
           {
             method: "GET",
+            credentials: 'include', 
             headers: {
               "Content-Type": "application/json",
               "Authorization": `Bearer ${localStorage.getItem("accessToken")}`,
@@ -30,10 +28,10 @@ export default function ClassAppliedList() {
         );
        
         if (!response.ok) {
-          throw new Error("something went wrong");
+          throw new Error("Something went wrong with the request");
         }
         const data = await response.json();
-        setApiLectures(data.data || []);
+        setApiLectures(data.class_list || []);
       } catch (error) {
         console.error("Error fetching applied lectures:", error);
       } finally {
@@ -44,19 +42,16 @@ export default function ClassAppliedList() {
     fetchAppliedLectures();
   }, []);
 
+  const lectureShown = useMemo(() => {
+    if (filterState === "open") {
+      return apiLectures.filter((lecture) => lecture.status === "open");
+    }
+    return apiLectures;
+  }, [filterState, apiLectures]);
+
   if (isLoading) {
     return <div>로딩 중...</div>;
   }
-  */
-
-  ////
-
-  const filterOpen = () => {
-    return [...lectures].filter((lecture) => lecture.status === 'open');
-  };
-
-  const openLectures = filterOpen();
-  const lectureShown = filterState === 'all' ? lectures : openLectures;
 
   return (
     <div className='full-lecture'>
@@ -74,7 +69,6 @@ export default function ClassAppliedList() {
             {filterState === 'all' ? '모집 중인 수업만 보기' : '전체 수업 보기'}
           </p>
         </button>
-        {/*API 연동 시에는 lectures={lectureShown} 대신 lectures={apiLectures} 와 같이 수정 */}
         <LectureList lectures={lectureShown}/>
       </div>
       <Navbar/>
