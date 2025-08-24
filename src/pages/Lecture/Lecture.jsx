@@ -2,17 +2,16 @@ import React from 'react'
 import './Lecture.css'
 import Header from '../../components/Header/Header'
 import Navbar from '../../components/Navbar/Navbar'
-import lecture1_img from '../../assets/lecture1.png'
 import LectureList from '../../components/Lecture/LectureList'
 import SliderBanner from '../../components/SlideBanner/SlideBanner'
 import { useNavigate } from 'react-router-dom'
 import SearchBar from '../../components/SearchBar/SearchBar'
-// import { useEffect, useState } from "react-router-dom";
-import lectures from '../../utils/lectures'
+import { useEffect, useState } from "react";
+// import lectures from '../../utils/lectures'
 
 const Lecture = () => {
 
-  // const [lectures, setLectures] = useState([])
+  const [lectures, setLectures] = useState([])
   const navigate = useNavigate();
   
   const sortLecture = () => {
@@ -23,31 +22,33 @@ const Lecture = () => {
   
   const recentLectures = sortLecture();
 
-  // const SearchBox = ({value, onChange}) => {
-  //   return (
-  //     <input type='search' placeholder='제목이나 내용으로 검색해보세요!' value={value} onChange={onChange}/>
-  //   );
-  // }
-
-  // const searchbar = SearchBox();
-  // useEffect(() => {
-    //   async function fetchLectures() {
-      //     try {
-        //       const response = await fetch(
-          //         `${import.meta.env.VITE_API_URL}/classes/list`
-          //       );
-          
-          //       if (!response.ok) {
-            //         throw new Error("something went wrong");
-            //       }
-            //       const data = await response.json();
-            //       setLectures(data.data.reverse());
-            //     } catch (error) {
-              //       console.error("Error fetching lectures:", error);
-              //     }
-              //   }
-              //   fetchLectures();
-              // }, []);
+  useEffect(() => {
+      async function fetchLectures() {
+          try {
+              const response = await fetch(
+                  `${import.meta.env.VITE_API_URL}/classes/list`,
+                  {
+                    method: "GET",
+                    credentials: "include",
+                    headers: {
+                      "Accept": "application/json",
+                      // "Authorization": `Bearer ${window.localStorage.getItem("accessToken")}`,
+                    },
+                  }
+                );
+                
+                if (!response.ok) {
+                    throw new Error(`Error fetching lectures:${response.status}`);
+                  }
+                  const data = await response.json();
+                  setLectures(data.classes);
+                  console.log(lectures)
+                } catch (error) {
+                    console.error("Error fetching lectures:", error);
+                  }
+                }
+                fetchLectures();
+              }, [navigate]);
               
   return (
     <div className='lecture'>

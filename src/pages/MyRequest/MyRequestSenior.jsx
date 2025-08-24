@@ -1,15 +1,15 @@
 import React from 'react'
-import './MyRequestJunior.css'
+import './MyRequestSenior.css'
 import Header from '../../components/Header/Header'
 import Navbar from '../../components/Navbar/Navbar'
 import { useNavigate } from 'react-router-dom'
 import dum_request from '../../utils/dumRequest'
 import MyRequestStatus from '../../components/MyRequest/MyRequestStatus'
-import MyRequestJuniorBlock from '../../components/MyRequest/MyRequestJuniorBlock'
 import MyRequestBlock from '../../components/MyRequest/MyRequestBlock'
-import MyRequestBlockJunior from '../../components/MyRequest/MyRequestBlockJunior'
+import { useState } from 'react'
 
-const MyRequestJunior = ({myrequests}) => {
+
+const MyRequestSenior = ({myrequests}) => {
   const navigate = useNavigate();
 
   // const myrequests = dum_request[0].data.active;
@@ -33,8 +33,8 @@ const MyRequestJunior = ({myrequests}) => {
           </div>
           <div className="myrequest-list">
             <div className="myrequest-item">
-              {myrequests.accepted_requests.map((req) => (
-                <MyRequestBlockJunior key={req.request_id} {...req} requestId={req.request_id} />
+              {myrequests.requests.map((req) => (
+                <MyRequestBlock key={req.request_id} {...req} requestId={req.request_id} />
               ))}
             </div>
           </div>
@@ -43,13 +43,9 @@ const MyRequestJunior = ({myrequests}) => {
       </div>
     )
   }
+
+
 }
 
-export default MyRequestJunior;
 
-// <div className="myrequest-content none">
-//         {/* 요청 X 상태 */}
-//         <h2>현재 수락한 도움이 없어요!</h2>
-//         {/* 일단은 홈으로 이동하게 해둠 -> 채팅으로 이동? */}
-//         <button className='no-request' onClick={()=>navigate('/')}>도움을 수락하려면 여기를 누르세요!</button>
-//       </div>
+export default MyRequestSenior

@@ -4,11 +4,11 @@ import MyRequestStatus from './MyRequestStatus'
 import { formatKoreanDate } from '../../utils/dateFormat'
 import { useNavigate } from 'react-router-dom'
 
-const MyRequestBlock = ({requestId, title, location, request_time, status}) => {
+const MyRequestBlock = ({requestId, title, location, request_time, status, junior_info}) => {
     const navigate = useNavigate();
     const handleClick = () => {
-        // navigate(`/myrequest/:${requestId}`)
-        navigate('/myrequest/progress')
+        navigate(`/myrequest/${requestId}`)
+        // navigate('/myrequest/progress')
     }
     if (status==='pending'){
         return (
@@ -34,11 +34,13 @@ const MyRequestBlock = ({requestId, title, location, request_time, status}) => {
                 </div>
                 <div className="junior-profile">
                     {/* <img src={junior_img} alt="" className='junior-img'/> */}
+                    {junior_info===null?<></>:
                     <div className="junior-info">
-                        <h2>000 청년</h2>
-                        <h3>한 줄 소개 한 줄 소개</h3>
-                        <h3>010-1234-5678</h3>
+                        <h2>{junior_info.name}</h2>
+                        <h3>{junior_info.phone_number}</h3>
+                        <h3>{junior_info.profile_image_url}</h3>
                     </div>
+                    }
                 </div>
             </div>
         )

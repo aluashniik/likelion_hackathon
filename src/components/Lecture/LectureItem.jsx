@@ -13,8 +13,8 @@ const LectureItem = ({lectureId, title, schedule, host_id, status}) => {
     const navigate = useNavigate();
   
     const handleClick = () => {
-        // navigate(`/lecture/${lectureId}`);
-        navigate(`/lecture/detail`);
+        navigate(`/lecture/${lectureId}`);
+        // navigate(`/lecture/detail`);
     }
     
     return (

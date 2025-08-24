@@ -31,6 +31,7 @@ import SignUp from './pages/SignUp/SignUp'
 import SignUpForm from './pages/SignUp/SignUpForm'
 import MyRequestJunior from './pages/MyRequest/MyRequestJunior'
 import FinishSignup from './pages/SignUp/FinishSignup'
+import LoginGuard from './components/LoginGuard'
 
 const App = () => {
   // 스크린 사이즈 세팅
@@ -38,6 +39,11 @@ const App = () => {
 		let vh = window.innerHeight * 0.01;
 		document.documentElement.style.setProperty('--vh', `${vh}px`);
 	}
+
+  const ProtectedHome = LoginGuard(Home);
+  const ProtectedLecture = LoginGuard(Lecture);
+  const ProtecetedMyRequest = LoginGuard(MyRequest);
+  const ProtectedMyPage = LoginGuard(MyPage);
 
 	useEffect(() => {
 		setScreenSize();
@@ -59,20 +65,24 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
+        {/* <Route path='/' element={<ProtectedHome/>}/> */}
         <Route path='/' element={<Home/>}/>
         <Route path='/junior' element={<MyRequestJunior/>}/>
         <Route path='/login' element={<Login/>}/>
         <Route path='/signup' element={<SignUp/>}/>
         <Route path='/signup/form' element={<SignUpForm/>}/>
         <Route path='/signup/form/login' element={<FinishSignup/>}/>
+        {/* <Route path='/lecture' element={<ProtectedLecture/>}/> */}
         <Route path='/lecture' element={<Lecture/>}/>
         <Route path='/lecture/full' element={<FullLecture/>}/>
-        {/* <Route path='/lecture/:lectureId' element={<LectureDetail/>}/> */}
-        <Route path='/lecture/detail' element={<LectureDetail/>}/>
+        <Route path='/lecture/lectureId' element={<LectureDetail/>}/>
+        {/* <Route path='/lecture/detail' element={<LectureDetail/>}/> */}
         <Route path='/myrequest' element={<MyRequest/>}/>
-        {/* <Route path='/myrequest/:requestId' element={<MyRequestDetail/>}/> */}
+        {/* <Route path='/myrequest' element={<ProtecetedMyRequest/>}/> */}
+        <Route path='/myrequest/requestId' element={<MyRequestDetail/>}/>
         <Route path='/myrequest/progress' element={<MyRequestProgress/>}/>
         <Route path='/myrequest/progress/edit' element={<MyRequestEdit/>}/>
+        {/* <Route path='/mypage' element={<ProtectedMyPage/>}/> */}
         <Route path='/mypage' element={<MyPage/>}/>
         <Route path='/request/chat' element={<Chat/>}/>
         <Route path='/request/chatcomplete' element={<ChatComplete/>}/>

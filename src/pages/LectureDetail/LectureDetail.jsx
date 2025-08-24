@@ -98,9 +98,9 @@ const LectureDetail = () => {
     
         loadData();
 
-    }, [lectureId]);
+    }, []);
 
-    
+
     const handleRegister = async () => {
         try{
             const response = await fetch(
