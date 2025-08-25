@@ -16,6 +16,7 @@
     width: 100%;
 }
 
+
 .myrequest-guide.junior{
     display: flex;
     justify-content: start;
@@ -89,5 +90,5 @@ h2{
     justify-content: center;
     align-items: center;
     gap: 1rem;
-
 }
+

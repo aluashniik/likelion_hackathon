@@ -1,15 +1,11 @@
 import React from 'react'
 import './SignUp.css'
-import { useState } from 'react';
 import logo from '../../assets/logo.png'
 import { useNavigate } from 'react-router-dom';
 import Header from '../../components/Header/Header';
 
 const SignUp = () => {
   const navigate = useNavigate();
-//   const handleAge = (age) => {
-//     navigate("/signup/form", {state:{age}})
-//   }
 
   return (
     <div className='sign-up'>

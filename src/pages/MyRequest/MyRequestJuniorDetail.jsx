@@ -2,41 +2,80 @@ import React from 'react'
 import './MyRequestJunior.css'
 import Header from '../../components/Header/Header'
 import Navbar from '../../components/Navbar/Navbar'
-import { useNavigate } from 'react-router-dom'
-import dum_request from '../../utils/dumRequest'
-import MyRequestStatus from '../../components/MyRequest/MyRequestStatus'
-import MyRequestJuniorBlock from '../../components/MyRequest/MyRequestJuniorBlock'
+import MyRequestFullBlock from '../../components/MyRequest/MyRequestFullBlock'
+import { useEffect } from 'react'
+import { useParams } from 'react-router-dom'
+import { useState } from 'react'
 
-const MyRequestJunior = () => {
-  const navigate = useNavigate();
-  const myrequests = dum_request[0].data.active;
+const MyRequestJuniorDetail = () => {
+  const { requestId } = useParams();
+    const [requestData, setRequestData] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
+
+    // 2. useEffect 훅에서 API를 호출합니다.
+    useEffect(() => {
+        async function fetchFullRequestData() {
+            try {
+                const response = await fetch(
+                    `${import.meta.env.VITE_API_URL}/request/${requestId}`,
+                    {
+                        method: "GET",
+                        credentials: "include",
+                        headers: { "Accept": "application/json" }
+                    }
+                );
+
+                if (!response.ok) {
+                    throw new Error("Failed to fetch data.");
+                }
+                const data = await response.json();
+                setRequestData(data.data);
+            } catch (error) {
+                console.error("Error fetching request details:", error);
+            } finally {
+                setIsLoading(false);
+            }
+        }
+        if (requestId) {
+            fetchFullRequestData();
+        }
+    }, [requestId]);
+
+    if (isLoading) {
+        return (
+          <div className='myrequest junior'>
+            <Header title={'요청'}/>
+            <div className="myrequest-content junior">
+                <h3>요청 정보를 불러오는 중...</h3>
+            </div>
+            <Navbar/>
+          </div>
+        )
+    }
+    
+    if (!requestData) {
+      return (
+        <div className='myrequest junior'>
+          <Header title={'요청'}/>
+          <div className="myrequest-content junior">
+              <h3>요청 정보를 찾을 수 없습니다.</h3>
+          </div>
+          <Navbar/>
+        </div>
+      )
+    }
 
   return(
     <div className='myrequest junior'>
         <Header title={'요청'}/>
         <div className="myrequest-content junior">
-            <div className="myrequest-guide junior">
             <h2>내가 수락한 도움</h2>
-            </div>
-            <div className="myrequest-list junior">
-            <div className="myrequest-item junior">
-                {myrequests.map((req) => (
-                <MyRequestFullBlock key={req.request_id} {...req} requestId={req.request_id} />
-                ))}
-            </div>
-            </div>
+            <MyRequestFullBlock requestData={requestData} />
         </div>
         <Navbar/>
-        </div>
+    </div>
 
   )
 }
 
-export default MyRequestJunior;
-
-// <div className="myrequest-content none">
-//         {/* 요청 X 상태 */}
-//         <h2>현재 수락한 도움이 없어요!</h2>
-//         {/* 일단은 홈으로 이동하게 해둠 -> 채팅으로 이동? */}
-//         <button className='no-request' onClick={()=>navigate('/')}>도움을 수락하려면 여기를 누르세요!</button>
-//       </div>
+export default MyRequestJuniorDetail;

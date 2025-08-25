@@ -7,25 +7,182 @@ import { useState } from 'react'
 import junior_img from '../../assets/junior_profile.png'
 import star_org from '../../assets/star_org.png'
 import star_gray from '../../assets/star_gray.png'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import CancelModal from '../../components/CancelModal/CancelModal'
+import { useEffect } from 'react'
+import { formatKoreanDate } from '../../utils/dateFormat'
 
 const MyRequestProgress = () => {
+  const { requestId } = useParams();
+
   const [progressState, setProgressState] = useState('accepted');
   const [review, setReview] = useState("");
   const navigate = useNavigate();
-  const [openModal, setOpenModel] = useState(false);
-
+  const [openModal, setOpenModal] = useState(false);
+  const [requestDetails, setRequestDetails] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   const [selectedRating, setSelectedRating] = useState(null);
+  const [matchId, setMatchId] = useState(null);
+  const [targetId, setTargetId] = useState(null);
 
-  const handleStarHover = (rating) => {
-    setSelectedRating(rating);
+  useEffect(() => {
+    if (!requestId) {
+        setIsLoading(false);
+        return;
+    }
+
+    async function fetchRequestDetails() {
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/request/${requestId}`,
+          {
+            method: "GET",
+            credentials: 'include',
+            headers: {
+              "Accept": "application/json",
+            },
+          }
+        );
+        if (!response.ok) {
+          throw new Error("Failed to fetch request details.");
+        }
+        const data = await response.json();
+        setRequestDetails(data.data); // API 응답의 data 필드 저장
+      } catch (error) {
+        console.error("Error fetching request details:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    fetchRequestDetails();
+  }, [requestId]); // requestId가 변경될 때마다 API 호출
+
+  //도움 시작 버튼시 상태 변경
+  const handleStartHelp = async () => {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/request/${requestId}/start`,
+        {
+          method: "PATCH",
+          headers: {
+            "Authorization": `Bearer ${window.localStorage.getItem("accessToken")}`,
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("도움 시작 요청 실패");
+      }
+
+      // 서버로부터 받은 응답 데이터
+      const result = await response.json(); 
+      
+      // 상태를 업데이트하여 UI를 변경
+      setRequestDetails(prevDetails => ({
+        ...prevDetails,
+        status: result.data.status // API 응답의 status로 업데이트
+      }));
+
+    } catch (error) {
+      console.error("도움 시작 중 오류 발생:", error);
+      alert("도움 시작에 실패했습니다. 다시 시도해 주세요.");
+    }
   };
 
+  // 도움 완료 버튼 클릭 핸들러
+  const handleCompleteHelp = async () => {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/request/${requestId}/complete`,
+        {
+          method: "PATCH",
+          credentials: 'include',
+          headers: {
+            "Authorization": `Bearer ${window.localStorage.getItem("accessToken")}`,
+            "Accept": "application/json"
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("도움 완료 요청 실패");
+      }
+
+      const result = await response.json(); 
+      
+      setRequestDetails(prevDetails => ({
+        ...prevDetails,
+        status: result.data.status // API 응답의 status로 업데이트
+      }));
+
+      setMatchId(result.data.match_id);
+      setTargetId(result.data.review_prompt.target_user_id);
+
+    } catch (error) {
+      console.error("도움 완료 중 오류 발생:", error);
+      alert("도움 완료에 실패했습니다. 다시 시도해 주세요.");
+    }
+  };
+  
+  // 별점 설정 함수
   const handleStarClick = (rating) => {
     setSelectedRating(rating);
     console.log('Selected Rating:', rating);
   };
+
+  //리뷰 작성 함수
+  const handleReviewSubmit = async () => {
+    if (!selectedRating) {
+      alert("별점을 선택해주세요.");
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/reviews`,
+        {
+          method: "POST",
+          headers: {
+            "Authorization": `Bearer ${window.localStorage.getItem("accessToken")}`,
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+          },
+          body: JSON.stringify({
+            match_id: matchId,
+            target_id: targetId,
+            rating: selectedRating,
+            content: review,
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("리뷰 등록 실패");
+      }
+
+      alert("리뷰가 성공적으로 등록되었습니다.");
+      navigate("/myrequest"); //요청 화면으로 이동
+
+    } catch (error) {
+      console.error("리뷰 작성 중 오류 발생:", error);
+      alert("리뷰 등록에 실패했습니다. 다시 시도해 주세요.");
+    }
+  };
+
+
+
+  if (isLoading) {
+    return <div>요청 정보를 불러오는 중...</div>;
+  }
+
+  // 데이터가 없을 경우 에러 처리
+  if (!requestDetails) {
+      return <div>요청 정보를 찾을 수 없습니다.</div>;
+  }
+
+  setProgressState(requestDetails.status);
 
   
   if (progressState==='pending'){
@@ -33,27 +190,27 @@ const MyRequestProgress = () => {
       <div className='myrequest-progress'>
         <Header title={'요청'}/>
         <div className="myrequest-progress-content">
-          {openModal?<CancelModal openModal={openModal} setOpenModal={setOpenModel}/>:null}
+          {openModal?<CancelModal openModal={openModal} setOpenModal={setOpenModal}/>:null}
           <h2>요청 진행상황</h2>
           <div className="progress-detail">
-            <MyRequestStatus status={'pending'}/>
+            <MyRequestStatus status={progressState}/>
             <p>청년들이 요청을 확인하는 중이에요!</p>
           </div>
           <div className="pending-btn">
             <button className='fix-btn' onClick={()=>navigate('/myrequest/progress/edit')}>수정하기</button>
-            <button className='cancel-btn' onClick={()=>setOpenModel(true)}>취소하기</button>
+            <button className='cancel-btn' onClick={()=>setOpenModal(true)}>취소하기</button>
           </div>
           <h2>내가 등록한 글</h2>
           <div className="myrequest-article">
-            <h3>핸드폰 화면 녹화하는 방법을 알려주세요!</h3>
+            <h3>{requestDetails.title}</h3>
             <ul>
-              <li>000 어르신 </li>
+              <li>{requestDetails.senior_info?.name || '000 어르신'} </li>
               <li> | </li>
-              <li> 신수동 1번지</li>
+              <li> {requestDetails.location}</li>
               <li> | </li>
-              <li> 2025.08.20 14:20</li>
+              <li> {formatKoreanDate(requestDetails.request_time)}</li>
             </ul>
-            <p>제 핸드폰 화면을 녹화해서 손녀에게 보내주려고 합니다. 핸드폰 소리와 제가 말하는 소리가 모두 녹화되었으면 좋곘습니다.</p>
+            <p>{requestDetails.description}</p>
           </div>
         </div>
         <Navbar/>
@@ -70,28 +227,32 @@ const MyRequestProgress = () => {
             <p>청년이 요청을 수락했어요!</p>
           </div>
           <div className="junior-profile">
-            <img src={junior_img} alt="" className='junior-img'/>
+            <img src={requestDetails.junior_info?.profile_image_url || junior_img} alt="" className='junior-img'/>
             <div className="junior-info">
-              <h2>000 청년</h2>
-              <h3>한 줄 소개 한 줄 소개</h3>
-              <h3>010-1234-5678</h3>
+              <h2>{requestDetails.junior_info?.name || '000 청년'}</h2>
+              <h3>{requestDetails.junior_info?.introduce || '한 줄 소개'}</h3>
+              <h3>{requestDetails.junior_info?.phone_number}</h3>
             </div>
           </div>
-          <button className='start-help-btn' onClick={()=>setProgressState("in-progress")}>
+          <button className='start-help-btn' onClick={handleStartHelp}>
             <h2>도움받기 시작</h2>
             <h3>청년이 도움을 시작할 때 눌러주세요!</h3>
           </button>
           <h2>내가 등록한 글 확인하기</h2>
           <div className="myrequest-article">
-            <h3>핸드폰 화면 녹화하는 방법을 알려주세요!</h3>
+            <h3>{requestDetails.title}</h3>
             <ul>
-              <li>000 어르신 </li>
+              <li>{requestDetails.senior_info?.name || '000 어르신'}</li>
               <li> | </li>
-              <li> 신수동 1번지</li>
+              <li> {requestDetails.location}</li>
               <li> | </li>
-              <li> 2025.08.20 14:20</li>
+              <li> {formatKoreanDate(requestDetails.request_time)}</li>
             </ul>
-            <p>제 핸드폰 화면을 녹화해서 손녀에게...</p>
+            <p>
+            {requestDetails.description.length > 25
+              ? requestDetails.description.substring(0, 25) + "..."
+              : requestDetails.description}
+            </p>
           </div>
         </div>
         <Navbar/>
@@ -104,32 +265,36 @@ const MyRequestProgress = () => {
         <div className="myrequest-progress-content">
           <h2>요청 진행상황</h2>
           <div className="progress-detail">
-            <MyRequestStatus status={'in_progress'}/>
+            <MyRequestStatus status={progressState}/>
             <p>도움을 받는 중이에요!</p>
           </div>
           <div className="junior-profile">
-            <img src={junior_img} alt="" className='junior-img'/>
+          <img src={requestDetails.junior_info?.profile_image_url || junior_img} alt="" className='junior-img'/>
             <div className="junior-info">
-              <h2>000 청년</h2>
-              <h3>한 줄 소개 한 줄 소개</h3>
-              <h3>010-1234-5678</h3>
+              <h2>{requestDetails.junior_info?.name || '000 청년'}</h2>
+              <h3>{requestDetails.junior_info?.introduce || '한 줄 소개'}</h3>
+              <h3>{requestDetails.junior_info?.phone_number}</h3>
             </div>
           </div>
-          <button className='start-help-btn' onClick={()=>setProgressState("completed_unreviewed")}>
+          <button className='start-help-btn' onClick={handleCompleteHelp}>
             <h2>도움받기 완료</h2>
             <h3>청년이 도움을 완료했을 때 눌러주세요!</h3>
           </button>
           <h2>내가 등록한 글 확인하기</h2>
           <div className="myrequest-article">
-            <h3>핸드폰 화면 녹화하는 방법을 알려주세요!</h3>
+            <h3>{requestDetails.title}</h3>
             <ul>
-              <li>000 어르신 </li>
+              <li>{requestDetails.senior_info?.name || '000 어르신'}</li>
               <li> | </li>
-              <li> 신수동 1번지</li>
+              <li> {requestDetails.location}</li>
               <li> | </li>
-              <li> 2025.08.20 14:20</li>
+              <li> {formatKoreanDate(requestDetails.request_time)}</li>
             </ul>
-            <p>제 핸드폰 화면을 녹화해서 손녀에게...</p>
+            <p>
+              {requestDetails.description.length > 25
+                ? requestDetails.description.substring(0, 25) + "..."
+                : requestDetails.description}
+            </p>
           </div>
         </div>
         <Navbar/>
@@ -143,7 +308,7 @@ const MyRequestProgress = () => {
           <h2>도움받기 완료!</h2>
           <div className="junior-review-box">
             <img src={junior_img} alt="" className='junior-img'/>
-            <h2>000 청년</h2>
+            <h2>{requestDetails.junior_info.name}</h2>
           </div>
             <h3>청년의 도움이 어땠는지<br/>별점으로 알려주세요!</h3>
             <div className="star-box">
@@ -157,7 +322,7 @@ const MyRequestProgress = () => {
               ))}
             </div>
           <textarea value={review} onChange={(e) => setReview(e.target.value)} placeholder='도움 후기 남기기' className='review-box'/>
-          <button className='send-review-btn'>후기 작성 완료하기</button>
+          <button className='send-review-btn' onClick={handleReviewSubmit}>후기 작성 완료하기</button>
           <button className='tohome-btn' onClick={() => navigate('/')}>홈 화면으로 돌아가기</button>
         </div>
       </div>

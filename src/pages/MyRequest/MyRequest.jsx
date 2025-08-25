@@ -4,6 +4,8 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 import MyRequestSenior from './MyRequestSenior'
 import MyRequestJunior from './MyRequestJunior'
+import Header from '../../components/Header/Header'
+import Navbar from '../../components/Navbar/Navbar'
 
 
 const MyRequest = () => {
@@ -49,7 +51,15 @@ const MyRequest = () => {
   }, []);
 
   if (isLoading) {
-    return <div>loading...</div>;
+    return (
+      <div className='myrequest'>
+        <Header title={'요청'}/>
+        <div className="myrequest-content none">
+          <h3>loading...</h3>
+        </div>
+        <Navbar/>
+      </div>
+    )
   }
 
   if (role === "senior"){

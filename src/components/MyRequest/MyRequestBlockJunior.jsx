@@ -4,7 +4,7 @@ import MyRequestStatus from './MyRequestStatus'
 import { formatKoreanDate } from '../../utils/dateFormat'
 import { useNavigate } from 'react-router-dom'
 
-const MyRequestBlockJunior = ({requestId, title, location, request_time, status, senior_info}) => {
+const MyRequestBlockJunior = ({requestId, title, location, requestTime, status, seniorInfo}) => {
     const navigate = useNavigate();
     const handleClick = () => {
         navigate(`/myrequest/${requestId}`)
@@ -18,7 +18,7 @@ const MyRequestBlockJunior = ({requestId, title, location, request_time, status,
                 <div className="myrequest-detail">
                     <p>{location}</p>
                     <p> | </p>
-                    <p>{formatKoreanDate(request_time)}</p>
+                    <p>{formatKoreanDate(requestTime)}</p>
                 </div>
             </div>
         )
@@ -30,15 +30,15 @@ const MyRequestBlockJunior = ({requestId, title, location, request_time, status,
                 <div className="myrequest-detail">
                     <p>{location}</p>
                     <p> | </p>
-                    <p>{formatKoreanDate(request_time)}</p>
+                    <p>{formatKoreanDate(requestTime)}</p>
                 </div>
                 <div className="junior-profile">
                     {/* <img src={junior_img} alt="" className='junior-img'/> */}
-                    {senior_info===null?<></>:
+                    {seniorInfo===null?<></>:
                     <div className="junior-info">
-                        <h2>{senior_info.name}</h2>
-                        <h3>{senior_info.phone_number}</h3>
-                        <h3>{senior_info.profile_image_url}</h3>
+                        <img src={seniorInfo.profileImageUrl} alt="" />
+                        <h2>{seniorInfo.name}</h2>
+                        <h3>{seniorInfo.phoneNumber}</h3>
                     </div>
                     }
                 </div>
