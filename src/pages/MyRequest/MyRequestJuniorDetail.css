@@ -1,0 +1,24 @@
+.myrequestdetail{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+/* 요청글 O */
+.myrequestdetail-content{
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 8.5rem 2.7rem 12rem 2.7rem;
+    margin-top: 2.1rem;
+    width: 100%;
+    gap: 1rem;
+}
+
+.myrequest-full-block{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}

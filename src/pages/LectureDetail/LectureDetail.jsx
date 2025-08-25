@@ -97,7 +97,7 @@ const LectureDetail = () => {
 
     }, [lectureId]);
 
-
+    //수강신청하기
     const handleRegister = async () => {
         try{
             const response = await fetch(
@@ -115,8 +115,9 @@ const LectureDetail = () => {
                 throw new Error("something went wrong");
             }
             const data = await response.json();
-            if (data.success) {
+            if (data._success) {
                 setRegistState("applied");
+                alert("수강신청이 완료되었습니다.");
             }
         } catch (error){
             console.error("Error :", error)

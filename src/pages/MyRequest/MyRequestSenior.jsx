@@ -11,9 +11,7 @@ import { useState } from 'react'
 const MyRequestSenior = ({myrequests}) => {
   const navigate = useNavigate();
 
-  // const myrequests = dum_request[0].data.active;
-
-  if (myrequests.state === "none"){
+  if (!myrequests || myrequests.state === "none"){
     return (
       <div className='myrequest'>
         <Header title={'요청'}/>
@@ -24,8 +22,27 @@ const MyRequestSenior = ({myrequests}) => {
         <Navbar/>
       </div>
     )
-  }else{
+  }
+
+  const allRequests = [
+    ...(myrequests.pendingRequests || []),
+    ...(myrequests.acceptedRequests || []),
+  ];
+
+  if (allRequests.length === 0) {
     return (
+      <div className='myrequest'>
+        <Header title={'요청'}/>
+        <div className="myrequest-content none">
+          <h2>현재 요청한 도움이 없어요!</h2>
+          <button className='no-request' onClick={()=>navigate('/request/chat')}>도움을 요청하려면 여기를 누르세요!</button>
+        </div>
+        <Navbar/>
+      </div>
+    )
+  }
+
+  return (
       <div className='myrequest'>
         <Header title={'요청'}/>
         <div className="myrequest-content">
@@ -36,8 +53,8 @@ const MyRequestSenior = ({myrequests}) => {
           </div>
           <div className="myrequest-list">
             <div className="myrequest-item">
-              {myrequests.requests.map((req) => (
-                <MyRequestBlock key={req.request_id} {...req} requestId={req.request_id} />
+              {allRequests.map((req) => (
+                <MyRequestBlock key={req.requestId} {...req} requestId={req.requestId} />
               ))}
             </div>
           </div>
@@ -45,9 +62,6 @@ const MyRequestSenior = ({myrequests}) => {
         <Navbar/>
       </div>
     )
-  }
-
-
 }
 
 

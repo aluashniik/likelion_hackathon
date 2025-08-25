@@ -81,8 +81,9 @@ const App = () => {
         {/* <Route path='/myrequest' element={<MyRequest/>}/> */}
         <Route path='/myrequest' element={<ProtecetedMyRequest/>}/>
         <Route path='/myrequest/:requestId' element={<MyRequestJuniorDetail/>}/>
+        <Route path='/myrequest/progress/:requestId' element={<MyRequestProgress/>}/>
         {/* <Route path='/myrequest/progress' element={<MyRequestProgress/>}/> */}
-        <Route path='/myrequest/progress/edit' element={<MyRequestEdit/>}/>
+        <Route path='/myrequest/progress/edit/:requestId' element={<MyRequestEdit/>}/>
         <Route path='/mypage' element={<ProtectedMyPage/>}/>
         {/* <Route path='/mypage' element={<MyPage/>}/> */}
         <Route path='/request/chat' element={<Chat/>}/>

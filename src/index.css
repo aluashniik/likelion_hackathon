@@ -95,7 +95,8 @@ body {
 .sign-up,
 .request,
 .signup-form,
-.finish-signup{
+.finish-signup,
+.myrequest-edit{
   margin-left: auto;
   margin-right: auto;
   min-height: 100vh;
@@ -119,6 +120,7 @@ body {
 .lecture-detail,
 .myrequest-progress,
 .myrequest,
+.myrequestdetail,
 .myrequest.junior,
 .myrequest-progress.review{
   margin-left: auto;
