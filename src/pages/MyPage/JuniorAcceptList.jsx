@@ -8,8 +8,7 @@ import { formatKoreanDateTime } from '../../utils/date';
 function Card({ item, onClick }) {
   return (
     <div className="shl-card">
-      {/* API 응답에 status가 없으므로, '수락 완료'를 기본으로 표시 */}
-      <span className="shl-badge badge-waiting">수락 완료</span>
+      {/* <span className="shl-badge badge-waiting">수락 완료</span> */}
       <h3 className="shl-title">{item.help_title}</h3>
       <ul className="shl-meta">
         <li><b>장소</b> {item.location}</li>

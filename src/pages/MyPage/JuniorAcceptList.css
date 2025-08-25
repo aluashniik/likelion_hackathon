@@ -28,7 +28,7 @@
 }
 
 /* 상태 배지 */
-.shl-badge{
+/* .shl-badge{
   position:absolute;
   top:.8rem; left:.8rem;
   display:inline-block;
@@ -36,7 +36,7 @@
   border-radius:1.2rem;
   font-size:1.3rem;
   font-weight:500;
-}
+} */
 
 .badge-waiting{ background:#b0e8c0; color: #000; } /* 수락 완료 */
 .badge-done   { background:#d9d9d9; color:#000}  /* 도움 완료 */

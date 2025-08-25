@@ -100,11 +100,11 @@ const App = () => {
         <Route path="/list" element={<HelpRequests/>}/>
         <Route path="/list/details" element={<HelpRequestsDetails/>}/>
 
-        <Route path="mypage/help-requests" element={<SeniorHelpList/>}/>
-        <Route path="mypage/help-requests/:id" element={<SeniorHelpDetail/>}/>
+        <Route path="/mypage/help-requests" element={<SeniorHelpList/>}/>
+        <Route path="/mypage/help-requests/:id" element={<SeniorHelpDetail/>}/>
 
-        <Route path="mypage/accepted-requests" element={<JuniorAcceptList/>}/>
-        <Route path="mypage/accepted-requests/:id" element={<JuniorAcceptDetail/>}/>
+        <Route path="/mypage/accepted-requests" element={<JuniorAcceptList/>}/>
+        <Route path="/mypage/accepted-requests/:id" element={<JuniorAcceptDetail/>}/>
 
         <Route path="/mypage/class-opened" element={<ClassOpenedList/>} />
         <Route path="/mypage/class-applied" element={<ClassAppliedList/>} /> 

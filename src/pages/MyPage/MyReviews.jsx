@@ -62,13 +62,9 @@ export default function MyReviews() {
 
         const res = await response.json();
 
-        // [수정] 여러 형태의 성공 여부 키를 모두 확인합니다 (success, _success, is_success)
         const isSuccess = res.success || res._success || res.is_success;
 
         if (isSuccess) {
-          // [수정] 여러 형태의 데이터 위치를 모두 확인합니다.
-          // 1. 최상단에 review_list가 있는지 확인
-          // 2. 없다면, data 객체 안의 review_list를 확인
           const reviews = res.review_list || res.data?.review_list || [];
           setList(reviews);
         } else {
