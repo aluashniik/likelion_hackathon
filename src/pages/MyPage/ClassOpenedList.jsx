@@ -10,9 +10,16 @@ export default function ClassOpenedList() {
   const [filterState, setFilterState] = useState('all');
 
   // API 연동 준비
-  /*
+  
   const [apiLectures, setApiLectures] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  const lectureShown = useMemo(() => {
+    if (filterState === "open") {
+      return apiLectures.filter((lecture) => lecture.status === "open");
+    }
+    return apiLectures;
+  }, [filterState, apiLectures]);
 
   useEffect(() => {
     const fetchAppliedLectures = async () => {
@@ -47,7 +54,7 @@ export default function ClassOpenedList() {
   if (isLoading) {
     return <div>로딩 중...</div>;
   }
-  */
+  
 
   ////
 
@@ -55,8 +62,10 @@ export default function ClassOpenedList() {
     return [...lectures].filter((lecture) => lecture.status === 'open');
   };
 
-  const openLectures = filterOpen();
-  const lectureShown = filterState === 'all' ? lectures : openLectures;
+  //const openLectures = filterOpen();
+  //const lectureShown = filterState === 'all' ? lectures : openLectures;
+
+  
 
   return (
     <div className='full-lecture'>
@@ -74,7 +83,6 @@ export default function ClassOpenedList() {
             {filterState === 'all' ? '모집 중인 수업만 보기' : '전체 수업 보기'}
           </p>
         </button>
-        {/*API 연동 시에는 lectures={lectureShown} 대신 lectures={apiLectures} 와 같이 수정 */}
         <LectureList lectures={lectureShown}/>
       </div>
       <Navbar/>

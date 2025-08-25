@@ -77,7 +77,7 @@ const App = () => {
         {/* <Route path='/lecture' element={<Lecture/>}/> */}
         <Route path='/lecture/full' element={<FullLecture/>}/>
         <Route path='/lecture/:lectureId' element={<LectureDetail/>}/>
-        {/* <Route path='/lecture/detail' element={<LectureDetail/>}/> */}
+
         {/* <Route path='/myrequest' element={<MyRequest/>}/> */}
         <Route path='/myrequest' element={<ProtecetedMyRequest/>}/>
         <Route path='/myrequest/:requestId' element={<MyRequestJuniorDetail/>}/>
@@ -94,11 +94,11 @@ const App = () => {
         <Route path="/list" element={<HelpRequests/>}/>
         <Route path="/list/details" element={<HelpRequestsDetails/>}/>
 
-        <Route path="mypage/help-requests" element={<SeniorHelpList/>}/>
-        <Route path="mypage/help-requests/:id" element={<SeniorHelpDetail/>}/>
+        <Route path="/mypage/help-requests" element={<SeniorHelpList/>}/>
+        <Route path="/mypage/help-requests/:id" element={<SeniorHelpDetail/>}/>
 
-        <Route path="mypage/accepted-requests" element={<JuniorAcceptList/>}/>
-        <Route path="mypage/accepted-requests/:id" element={<JuniorAcceptDetail/>}/>
+        <Route path="/mypage/accepted-requests" element={<JuniorAcceptList/>}/>
+        <Route path="/mypage/accepted-requests/:id" element={<JuniorAcceptDetail/>}/>
 
         <Route path="/mypage/class-opened" element={<ClassOpenedList/>} />
         <Route path="/mypage/class-applied" element={<ClassAppliedList/>} /> 
@@ -107,7 +107,6 @@ const App = () => {
         <Route path= "/mypage/reviews/:id" element={<MyReviewsDetail/>}/>
        
         <Route path="/mypage/contact" element={<ContactAdmin/>}/>
-
         <Route path="/mypage/edit" element={<EditProfile/>}/>
 
       </Routes>

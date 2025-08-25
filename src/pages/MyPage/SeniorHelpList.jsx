@@ -7,6 +7,7 @@ import "./SeniorHelpList.css";
 import { formatKoreanDateTime } from '../../utils/date';
 
 //목업
+/*
 const mock = [
   {
     match_id: 1,
@@ -29,7 +30,7 @@ const mock = [
     matched_at: "2025-08-07T15:00:00",
     status: 'done' //도움 완료
   },
-];
+];*/
 
 const STATUS ={
   pending :{label: "수락 전", className:"badge-pending"},
@@ -56,32 +57,52 @@ export default function SeniorHelpList() {
   const navigate = useNavigate();
   
   // API 연동 준비
-  /*
+  
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchRequests = async () => {
+      setLoading(true);
       try {
-        const res = await getMyHelpRequests();
-        if (res.is_success) {
-          setList(res.help_list || []);
+        const API_BASE_URL = import.meta.env.VITE_API_URL;
+        const url = `${API_BASE_URL}/mypage/request`;
+        const token = localStorage.getItem('accessToken');
+
+        const response = await fetch(url, {
+          credentials: 'include',
+          headers: {
+            ...(token && { 'Authorization': `Bearer ${token}` })
+          }
+        });
+
+        if (!response.ok) {
+          throw new Error(`서버 에러 (HTTP ${response.status})`);
         }
-      } catch (error) {
-        console.error("도움 신청 내역을 불러오는 데 실패했습니다.", error);
-      } finally {
+
+        const res = await response.json();
+
+        if (res.is_success || res._success) {
+          setList(res.data?.help_list || []);
+        } else {
+          throw new Error(res.message || '데이터 로딩 실패');
+        }
+      }finally {
         setLoading(false);
       }
     };
+
     fetchRequests();
   }, []);
+
+
 
   if (loading) {
     return <div>목록을 불러오는 중...</div>;
   }
-  */
+  
 
-  const list = useMemo(() => mock, []);
+  //const list = useMemo(() => mock, []);
   
   const goDetail = (it) => {
     sessionStorage.setItem("hr:lastItem", JSON.stringify(it));

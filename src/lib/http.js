@@ -1,10 +1,10 @@
 // src/lib/http.js
-const API_BASE = import.meta.env.VITE_API_BASE_URL; // .env 필요
+const API_BASE = import.meta.env.VITE_API_URL; // .env 필요
 
 // 공통 요청 함수
 export async function request(path, init = {}) {
   if (!API_BASE) {
-    console.warn('VITE_API_BASE_URL가 비어있습니다. .env 확인하세요.');
+    console.warn('VITE_API_URL가 비어있습니다. .env 확인하세요.');
   }
 
   const headers = new Headers(init.headers || {});
@@ -23,7 +23,7 @@ export async function request(path, init = {}) {
     method: 'GET',
     ...init,
     headers,
-    // credentials: 'include',
+    credentials: 'include',
   });
 
   // 204 (No Content) 즉시 성공 반환

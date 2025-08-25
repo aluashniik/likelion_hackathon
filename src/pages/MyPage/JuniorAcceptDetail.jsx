@@ -24,7 +24,7 @@ export default function JuniorAcceptDetail() {
   const navigate = useNavigate();
 
   // API 연동 준비 
-  /*
+  
   const [detailData, setDetailData] = useState(null);
   const [loading, setLoading] = useState(true);
   
@@ -56,11 +56,11 @@ export default function JuniorAcceptDetail() {
   
   // API 연동 시에는 아래 item 대신 detailData를 사용
   // if (!detailData) { ... } 
-  */
+  
 
   let item = state || JSON.parse(sessionStorage.getItem('hr:lastItem'));
 
-  if (!item) {
+  if (!detailData) {
     return <div>상세 데이터를 찾을 수 없습니다.</div>;
   }
 

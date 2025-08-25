@@ -7,6 +7,7 @@ import { formatKoreanDateTime } from "../../utils/date";
 import howtoscreenshot from "../../assets/howtoscreenshot.png";
 import ai_time from "../../assets/ai_time.png";
 
+
 export default function ChatComplete() {
   const { state } = useLocation();
   const navigate = useNavigate();
