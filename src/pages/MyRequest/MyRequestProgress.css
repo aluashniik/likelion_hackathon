@@ -306,7 +306,7 @@ h3{
     transition: 0.2s ease-in-out;
 }
 
-.tohome-btn {
+.tohome-btn{
     background: var(--text-primary);
 }
 

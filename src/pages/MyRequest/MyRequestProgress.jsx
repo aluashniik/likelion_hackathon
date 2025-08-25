@@ -83,8 +83,10 @@ const MyRequestProgress = () => {
 
       setRequestDetails(prevDetails => ({
         ...prevDetails,
-        status: "in-progress" // 'accepted'에서 'in-progress'로 변경
+        status: "in_progress"
       }));
+
+      alert("도움이 시작되었습니다.");
 
     } catch (error) {
       console.error("도움 시작 중 오류 발생:", error);
@@ -120,6 +122,9 @@ const MyRequestProgress = () => {
 
       setMatchId(result.data.matchId);
       setTargetId(result.data.reviewPrompt.targetUserId);
+
+      alert("도움이 완료되었습니다.");
+      navigate(`/myrequest/progress/${requestId}`);
 
     } catch (error) {
       console.error("도움 완료 중 오류 발생:", error);
