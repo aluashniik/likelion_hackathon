@@ -2,25 +2,34 @@ import React from 'react'
 import search_icon from '../../assets/search_icon.png'
 import delete_icon from '../../assets/delete_icon.png'
 import './SearchBar.css'
-import { useState } from 'react'
 
-const SearchBar = () => {
+const SearchBar = ({ value, onSearch, onSubmit }) => {
 
-  const [searchItem, setSearchItem] = useState("");
   const handleDelete = () => {
-    setSearchItem("");
-  }
+    onSearch('');
+  };
 
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    if (value.trim()) {
+      onSubmit();
+    }
+  };
 
   return (
-    <div className="search-bar">
+    <form className="search-bar" onSubmit={handleSearchSubmit}>
         <img src={search_icon} alt="" className='search-icon'/>
-        <input type='search' value={searchItem} onChange={(e)=>setSearchItem(e.target.value)}
-        placeholder='제목이나 내용으로 검색해보세요!'className="search-input"/>
-        <button type='button' onClick={handleDelete} disabled={!searchItem.trim()} className='delete-btn'>
+        <input 
+            type='search' 
+            value={value} 
+            onChange={(e)=>onSearch(e.target.value)}
+            placeholder='제목이나 내용으로 검색해보세요!'
+            className="search-input"
+        />
+        <button type='button' onClick={handleDelete} disabled={!value.trim()} className='delete-btn'>
           <img src={delete_icon} alt="" className='delete-icon'/>
         </button>
-    </div>
+    </form>
   )
 
 }

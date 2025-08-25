@@ -3,7 +3,6 @@ import './MyRequestSenior.css'
 import Header from '../../components/Header/Header'
 import Navbar from '../../components/Navbar/Navbar'
 import { useNavigate } from 'react-router-dom'
-import dum_request from '../../utils/dumRequest'
 import MyRequestStatus from '../../components/MyRequest/MyRequestStatus'
 import MyRequestBlock from '../../components/MyRequest/MyRequestBlock'
 import { useState } from 'react'
@@ -16,9 +15,13 @@ const MyRequestSenior = ({myrequests}) => {
 
   if (myrequests.state === "none"){
     return (
-      <div className="myrequest-content none">
-        <h2>현재 요청한 도움이 없어요!</h2>
-        <button className='no-request' onClick={()=>navigate('/request/chat')}>도움을 요청하려면 여기를 누르세요!</button>
+      <div className='myrequest'>
+        <Header title={'요청'}/>
+        <div className="myrequest-content none">
+          <h2>현재 요청한 도움이 없어요!</h2>
+          <button className='no-request' onClick={()=>navigate('/request/chat')}>도움을 요청하려면 여기를 누르세요!</button>
+        </div>
+        <Navbar/>
       </div>
     )
   }else{

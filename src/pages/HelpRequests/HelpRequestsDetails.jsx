@@ -184,33 +184,6 @@ export default function HelpRequestsDetails() {
             {accepted ? "도움 요청 수락 완료!" : "도움 요청 수락하기"}
           </button>
         )}
-
-        {/* 어르신(Senior, 작성자)을 위한 '수정'*/}
-        {(detailData.ui_flags?.can_edit || detailData.ui_flags?.can_cancel) && (
-          <div className="hrd-author-actions">
-            {/* {detailData.ui_flags.can_edit && (
-              <button
-                className="hrd-edit-btn"
-                onClick={() => navigate(detailData.routes.edit)}
-              >
-                수정하기
-              </button>
-            )} */}
-            {/* {detailData.ui_flags.can_cancel && (
-              <button
-                className="hrd-cancel-btn"
-                onClick={() => {
-                  if (window.confirm("정말로 이 요청을 취소하시겠습니까?")) {
-                    // handleCancelRequest(detailData.routes.cancel);
-                    alert("취소 API 호출 로직 연결이 필요합니다.");
-                  }
-                }}
-              >
-                요청 취소
-              </button>
-            )} */}
-          </div>
-        )}
       </main>
       <Navbar />
       </div>

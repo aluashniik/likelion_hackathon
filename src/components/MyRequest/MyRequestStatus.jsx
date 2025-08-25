@@ -5,13 +5,13 @@ const MyRequestStatus = ({ status }) => {
 
   const statusClass = {
     pending: "status pending",
-    accepted: "status accepted",
+    matched: "status matched",
     in_progress: "status in-progress"
   }[status];
 
   const statusText = {
     pending: "수락 전",
-    accepted: "수락 완료",
+    matched: "수락 완료",
     in_progress: "도움 중"
   }[status];
 

@@ -8,7 +8,6 @@ const MyRequestBlock = ({requestId, title, location, request_time, status, junio
     const navigate = useNavigate();
     const handleClick = () => {
         navigate(`/myrequest/${requestId}`)
-        // navigate('/myrequest/progress')
     }
     if (status==='pending'){
         return (

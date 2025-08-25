@@ -3,22 +3,20 @@ import './MyRequestJunior.css'
 import Header from '../../components/Header/Header'
 import Navbar from '../../components/Navbar/Navbar'
 import { useNavigate } from 'react-router-dom'
-import dum_request from '../../utils/dumRequest'
-import MyRequestStatus from '../../components/MyRequest/MyRequestStatus'
-import MyRequestJuniorBlock from '../../components/MyRequest/MyRequestJuniorBlock'
-import MyRequestBlock from '../../components/MyRequest/MyRequestBlock'
 import MyRequestBlockJunior from '../../components/MyRequest/MyRequestBlockJunior'
 
 const MyRequestJunior = ({myrequests}) => {
   const navigate = useNavigate();
 
-  // const myrequests = dum_request[0].data.active;
-
   if (myrequests.state === "none"){
     return (
-      <div className="myrequest-content none">
-        <h2>현재 요청한 도움이 없어요!</h2>
-        <button className='no-request' onClick={()=>navigate('/request/chat')}>도움을 요청하려면 여기를 누르세요!</button>
+      <div className="myrequest">
+        <Header title={"요청"}/>
+        <div className="myrequest-content none">
+          <h2>현재 수락한 도움이 없어요!</h2>
+          <button className='no-request' onClick={()=>navigate('/list')}>도움을 수락하려면 여기를 누르세요!</button>
+        </div>
+        <Navbar />
       </div>
     )
   }else{
@@ -33,8 +31,8 @@ const MyRequestJunior = ({myrequests}) => {
           </div>
           <div className="myrequest-list">
             <div className="myrequest-item">
-              {myrequests.accepted_requests.map((req) => (
-                <MyRequestBlockJunior key={req.request_id} {...req} requestId={req.request_id} />
+              {myrequests.acceptedRequests.map((req) => (
+                <MyRequestBlockJunior key={req.requestId} {...req} requestId={req.requestId} />
               ))}
             </div>
           </div>
@@ -46,10 +44,3 @@ const MyRequestJunior = ({myrequests}) => {
 }
 
 export default MyRequestJunior;
-
-// <div className="myrequest-content none">
-//         {/* 요청 X 상태 */}
-//         <h2>현재 수락한 도움이 없어요!</h2>
-//         {/* 일단은 홈으로 이동하게 해둠 -> 채팅으로 이동? */}
-//         <button className='no-request' onClick={()=>navigate('/')}>도움을 수락하려면 여기를 누르세요!</button>
-//       </div>

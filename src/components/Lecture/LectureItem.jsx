@@ -4,29 +4,23 @@ import { formatKoreanDate } from '../../utils/dateFormat.js'
 import { useNavigate } from 'react-router-dom';
 // import { useNavigate } from 'react-router-dom'
 
-const LectureItem = ({lectureId, title, schedule, host_id, status}) => {
-    // const navigate = useNavigate();
-    // const handleClick = () => {
-    //     navigate(`/post/${postId}`);
-    // }
-
+const LectureItem = ({lectureId, title, schedule, host_name, status}) => {
     const navigate = useNavigate();
   
     const handleClick = () => {
         navigate(`/lecture/${lectureId}`);
-        // navigate(`/lecture/detail`);
     }
     
     return (
         <div className='lecture-wrapper' onClick={handleClick}>
             <div className="lecture-main">
                 <div className="lecture-title">{title}</div>
-                <div className = {(status==='open')?"lecture-status" : "lecture-status close"}>
-                    {(status==='open')?"모집 중" : "마감"}
+                <div className = {(status==='OPEN')?"lecture-status" : "lecture-status close"}>
+                    {(status==='OPEN')?"모집 중" : "마감"}
                 </div>
             </div>
             <div className="lecture-info">
-                <div className="lecture-host">{host_id}</div>
+                <div className="lecture-host">{host_name}</div>
                 <span> | </span>
                 <div className="lecture-schedule">{formatKoreanDate(schedule)}</div>
             </div>
