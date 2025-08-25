@@ -120,8 +120,8 @@ const MyRequestProgress = () => {
         status: "completed_unreviewed"
       }));
 
-      setMatchId(result.data.matchId);
-      setTargetId(result.data.reviewPrompt.targetUserId);
+      setMatchId(result.data.match_id);
+      setTargetId(result.data.target_id);
 
       alert("도움이 완료되었습니다.");
       navigate(`/myrequest/progress/${requestId}`);
