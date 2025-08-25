@@ -2,28 +2,50 @@ import React, { useEffect, useRef } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const isUserLoggedIn = () => {
-  // document.cookie 문자열에 "JSESSIONID="가 포함되어 있는지 확인
-  return document.cookie.includes("JSESSIONID=");
-};
-
 const LoginGuard = (_WrappedComponent) => {
   const WrappedComponent = _WrappedComponent;
+
   return function Guard(props) {
     const navigate = useNavigate();
     // useRef를 사용하여 alert가 이미 호출되었는지 추적
     const hasAlerted = useRef(false);
-    const isLoggedIn = isUserLoggedIn();
+    const [isLoggedIn, setIsLoggedIn] = useState(null); // null=확인중, true/false=결과
 
     useEffect(() => {
-      if (!isLoggedIn) {
-        if (!hasAlerted.current) {
-          alert("로그인이 필요합니다.");
-          hasAlerted.current = true;
+      async function checkAuth() {
+        try {
+          // 로그인 여부 확인을 위해 API 호출
+          const res = await fetch(`${import.meta.env.VITE_API_URL}/class`, {
+            method: "GET",
+            credentials: "include",
+            headers: {
+              Accept: "application/json",
+            },
+          });
+
+          if (res.status === 401) {
+            // 세션 만료 → 로그인 필요
+            if (!hasAlerted.current) {
+              alert("로그인이 필요합니다.");
+              hasAlerted.current = true;
+            }
+            navigate("/login", { replace: true });
+            setIsLoggedIn(false);
+          } else {
+            setIsLoggedIn(true);
+          }
+        } catch (error) {
+          console.error("인증 확인 중 에러:", error);
+          navigate("/login", { replace: true });
+          setIsLoggedIn(false);
         }
-        navigate("/login", { replace: true });
       }
-    }, [isLoggedIn, navigate]); // isLoggedIn 상태가 변할 때만 useEffect 실행
+      checkAuth();
+    }, [navigate]);
+
+    if (isLoggedIn === null) {
+      return null;
+    }
 
     if (!isLoggedIn) {
       return null;

@@ -3,7 +3,7 @@ import './SignUpForm.css'
 import Header from '../../components/Header/Header'
 import Navbar from '../../components/Navbar/Navbar'
 import { useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import SignupModal from '../../components/SignupModal/SignupModal'
 
 const SignUpForm = () => {
@@ -14,7 +14,6 @@ const SignUpForm = () => {
   const [password, setPassword] = useState("");
   const [profile, setProfile] = useState(null);
   const [explain, setExplain] = useState("");
-  const navigate = useNavigate();
   const locationNow = useLocation();
   const [openModal, setOpenModal] = useState(false);
   const role = locationNow.state?.role || "senior";
