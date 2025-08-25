@@ -3,6 +3,7 @@ import './MyRequestJunior.css'
 import Header from '../../components/Header/Header'
 import Navbar from '../../components/Navbar/Navbar'
 import MyRequestFullBlock from '../../components/MyRequest/MyRequestFullBlock'
+import './MyRequestJuniorDetail.css'
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useState } from 'react'
@@ -43,9 +44,9 @@ const MyRequestJuniorDetail = () => {
 
     if (isLoading) {
         return (
-          <div className='myrequest junior'>
+          <div className='myrequestdetail junior'>
             <Header title={'요청'}/>
-            <div className="myrequest-content junior">
+            <div className="myrequestdetail-content junior">
                 <h3>요청 정보를 불러오는 중...</h3>
             </div>
             <Navbar/>
@@ -55,9 +56,9 @@ const MyRequestJuniorDetail = () => {
     
     if (!requestData) {
       return (
-        <div className='myrequest junior'>
+        <div className='myrequestdetail junior'>
           <Header title={'요청'}/>
-          <div className="myrequest-content junior">
+          <div className="myrequestdetail-content junior">
               <h3>요청 정보를 찾을 수 없습니다.</h3>
           </div>
           <Navbar/>
@@ -66,11 +67,13 @@ const MyRequestJuniorDetail = () => {
     }
 
   return(
-    <div className='myrequest junior'>
+    <div className='myrequestdetail junior'>
         <Header title={'요청'}/>
-        <div className="myrequest-content junior">
+        <div className="myrequestdetail-content junior">
             <h2>내가 수락한 도움</h2>
-            <MyRequestFullBlock requestData={requestData} />
+            <div className="myrequest-full-block">
+              <MyRequestFullBlock requestData={requestData} />
+            </div>
         </div>
         <Navbar/>
     </div>

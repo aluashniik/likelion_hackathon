@@ -1,13 +1,19 @@
 import React from 'react'
 import './CancelModal.css'
 
-const CancelModal = ({openModal, setOpenModal}) => {
+const CancelModal = ({openModal, setOpenModal, onConfirm}) => {
+  const handleCancel = () => {
+    // onConfirm 함수를 실행하여 API 호출
+    onConfirm();
+    setOpenModal(false);
+  };
+
   return (
     <div className='cancel-modal'>
         <div className="cancel-container">
             <h2>정말 도움을 취소하시겠어요?</h2>
             <h3>한 번 취소된 도움은<br/>되돌리기 어려워요!</h3>
-            <button className='real-cancel-btn'>네, 취소할게요</button>
+            <button className='real-cancel-btn' onClick={handleCancel}>네, 취소할게요</button>
             <button className='no-cancel-btn' onClick={()=>setOpenModal(false)}>아뇨, 취소하지 않을래요</button>
         </div>
     </div>

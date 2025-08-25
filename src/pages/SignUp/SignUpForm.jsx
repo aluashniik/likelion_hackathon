@@ -52,6 +52,7 @@ const SignUpForm = () => {
           if (response.ok) {
             // 서버 응답 200이면 로그인창으로 이동
             setOpenModal(true);
+            console.log(profile);
         } else {
             // 응답실패 -> 오류 메시지를 띄우기
             alert("회원가입에 실패했습니다. 다시 시도해 주세요.");
@@ -90,7 +91,7 @@ const SignUpForm = () => {
                     <p>** 숫자 여섯 자리를 입력해주세요!</p>
                     <div className="signup-profile">
                         <h3>프로필<br/>사진</h3>
-                        <input type="file" accept='image/*' placeholder='사진 첨부하기' />
+                        <input type="file" accept='image/*' value={profile} placeholder='사진 첨부하기' onChange={(e) => setProfile(e.target.value)}/>
                     </div>
                     {role === "junior"?
                     <div className="signup-explain">

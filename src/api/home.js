@@ -82,8 +82,9 @@ export const updateChatDraft = (draftData) => {
 
 //[POST] /chat/finalize - 최종 요청 게시글 생성
 export const finalizeChatRequest = (finalData) => {
-  return http.post('/chat/finalize', finalData);
+  return http.post('/request/chat/finalize', finalData);
 };
+
 
 // [GET] /helpRequests - 도움 요청 목록 조회 (검색 파라미터 제거)
 export const getHelpRequests = () => {
