@@ -1,21 +1,17 @@
-
-.myrequest-block{
-    display: flex;
-    padding: 2rem;
+.myrequest-block.junior{
     width: 100%;
-    flex-direction: column;
-    align-items: flex-start;
-    border-radius: 1rem;
-    border: 1px solid var(--brand-primary);
+}
+
+.myrequest-block.junior:hover{
     background: var(--brand-quaternary);
-    color: var(--text-primary);
-    gap: 1rem;
+    cursor: default;
 }
 
 .myrequest-junior{
     color: var(--text-primary);
     font-size: 1.5rem;
     font-weight: 400;
+    width: 100%;
 }
 
 .myrequest-junior span{
@@ -27,12 +23,6 @@
     margin: 0;
     padding: 0 2rem;
     gap: 1rem;
-}
-
-.myrequest-block:hover{
-    cursor: pointer;
-    background: #f9ece6;
-    transition: 0.2s ease-in-out;
 }
 
 .myrequest-title{

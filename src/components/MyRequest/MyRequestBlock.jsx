@@ -4,10 +4,10 @@ import MyRequestStatus from './MyRequestStatus'
 import { formatKoreanDate } from '../../utils/dateFormat'
 import { useNavigate } from 'react-router-dom'
 
-const MyRequestBlock = ({requestId, title, location, request_time, status, junior_info}) => {
+const MyRequestBlock = ({requestId, title, location, requestTime, status, juniorInfo}) => {
     const navigate = useNavigate();
     const handleClick = () => {
-        navigate(`/myrequest/${requestId}`)
+        navigate(`/myrequest/progress/${requestId}`)
     }
     if (status==='pending'){
         return (
@@ -17,7 +17,7 @@ const MyRequestBlock = ({requestId, title, location, request_time, status, junio
                 <div className="myrequest-detail">
                     <p>{location}</p>
                     <p> | </p>
-                    <p>{formatKoreanDate(request_time)}</p>
+                    <p>{formatKoreanDate(requestTime)}</p>
                 </div>
             </div>
         )
@@ -29,15 +29,15 @@ const MyRequestBlock = ({requestId, title, location, request_time, status, junio
                 <div className="myrequest-detail">
                     <p>{location}</p>
                     <p> | </p>
-                    <p>{formatKoreanDate(request_time)}</p>
+                    <p>{formatKoreanDate(requestTime)}</p>
                 </div>
                 <div className="junior-profile">
                     {/* <img src={junior_img} alt="" className='junior-img'/> */}
-                    {junior_info===null?<></>:
+                    {juniorInfo===null?<></>:
                     <div className="junior-info">
-                        <h2>{junior_info.name}</h2>
-                        <h3>{junior_info.phone_number}</h3>
-                        <h3>{junior_info.profile_image_url}</h3>
+                        <h2>{juniorInfo.name}</h2>
+                        <h3>{juniorInfo.phoneNumber}</h3>
+                        <h3>{juniorInfo.profileImageUrl}</h3>
                     </div>
                     }
                 </div>

@@ -15,7 +15,7 @@ import { formatKoreanDate } from '../../utils/dateFormat'
 const MyRequestProgress = () => {
   const { requestId } = useParams();
 
-  const [progressState, setProgressState] = useState('accepted');
+  // const [progressState, setProgressState] = useState(null);
   const [review, setReview] = useState("");
   const navigate = useNavigate();
   const [openModal, setOpenModal] = useState(false);
@@ -57,6 +57,7 @@ const MyRequestProgress = () => {
     fetchRequestDetails();
   }, [requestId]); // requestId가 변경될 때마다 API 호출
 
+  //////////////////////////////////////////////////
   //도움 시작 버튼시 상태 변경
   const handleStartHelp = async () => {
     try {
@@ -64,8 +65,9 @@ const MyRequestProgress = () => {
         `${import.meta.env.VITE_API_URL}/request/${requestId}/start`,
         {
           method: "PATCH",
+          credentials: 'include',
           headers: {
-            "Authorization": `Bearer ${window.localStorage.getItem("accessToken")}`,
+            // "Authorization": `Bearer ${window.localStorage.getItem("accessToken")}`,
             "Content-Type": "application/json",
             "Accept": "application/json"
           },
@@ -77,13 +79,14 @@ const MyRequestProgress = () => {
       }
 
       // 서버로부터 받은 응답 데이터
-      const result = await response.json(); 
-      
-      // 상태를 업데이트하여 UI를 변경
+      // const result = await response.json(); 
+
       setRequestDetails(prevDetails => ({
         ...prevDetails,
-        status: result.data.status // API 응답의 status로 업데이트
+        status: "in_progress"
       }));
+
+      alert("도움이 시작되었습니다.");
 
     } catch (error) {
       console.error("도움 시작 중 오류 발생:", error);
@@ -100,7 +103,7 @@ const MyRequestProgress = () => {
           method: "PATCH",
           credentials: 'include',
           headers: {
-            "Authorization": `Bearer ${window.localStorage.getItem("accessToken")}`,
+            // "Authorization": `Bearer ${window.localStorage.getItem("accessToken")}`,
             "Accept": "application/json"
           },
         }
@@ -114,11 +117,14 @@ const MyRequestProgress = () => {
       
       setRequestDetails(prevDetails => ({
         ...prevDetails,
-        status: result.data.status // API 응답의 status로 업데이트
+        status: "completed_unreviewed"
       }));
 
-      setMatchId(result.data.match_id);
-      setTargetId(result.data.review_prompt.target_user_id);
+      setMatchId(result.data.matchId);
+      setTargetId(result.data.reviewPrompt.targetUserId);
+
+      alert("도움이 완료되었습니다.");
+      navigate(`/myrequest/progress/${requestId}`);
 
     } catch (error) {
       console.error("도움 완료 중 오류 발생:", error);
@@ -144,8 +150,9 @@ const MyRequestProgress = () => {
         `${import.meta.env.VITE_API_URL}/reviews`,
         {
           method: "POST",
+          credentials: 'include',
           headers: {
-            "Authorization": `Bearer ${window.localStorage.getItem("accessToken")}`,
+            // "Authorization": `Bearer ${window.localStorage.getItem("accessToken")}`,
             "Content-Type": "application/json",
             "Accept": "application/json",
           },
@@ -171,44 +178,87 @@ const MyRequestProgress = () => {
     }
   };
 
+  //도움 취소 함수
+  const handleCancelRequest = async () => {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/request/${requestId}`,
+        {
+          method: "DELETE",
+          credentials: 'include',
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to save changes.");
+      }
+
+      alert("요청이 삭제되었습니다!");
+      navigate('/myrequest'); // 상세 조회 페이지로 돌아가기
+    } catch (error) {
+      console.error("Error saving changes:", error);
+      alert("요청 삭제에 실패했습니다. 다시 시도해 주세요.");
+    }
+  };
+
 
 
   if (isLoading) {
-    return <div>요청 정보를 불러오는 중...</div>;
-  }
-
-  // 데이터가 없을 경우 에러 처리
-  if (!requestDetails) {
-      return <div>요청 정보를 찾을 수 없습니다.</div>;
-  }
-
-  setProgressState(requestDetails.status);
-
-  
-  if (progressState==='pending'){
     return (
       <div className='myrequest-progress'>
         <Header title={'요청'}/>
         <div className="myrequest-progress-content">
-          {openModal?<CancelModal openModal={openModal} setOpenModal={setOpenModal}/>:null}
+          <h2>요청 정보를 불러오는 중...</h2>
+        </div>
+        <Navbar/>
+      </div>
+    )
+  }
+
+  // 데이터가 없을 경우 에러 처리
+  if (!requestDetails) {
+    return (
+      <div className='myrequest-progress'>
+        <Header title={'요청'}/>
+        <div className="myrequest-progress-content">
+          <h2>요청 정보를 찾을 수 없습니다.</h2>
+        </div>
+        <Navbar/>
+      </div>
+    )
+  }
+
+  const status = requestDetails.status;
+
+  
+  if (status ==='pending'){
+    return (
+      <div className='myrequest-progress'>
+        <Header title={'요청'}/>
+        <div className="myrequest-progress-content">
+          {openModal?<CancelModal openModal={openModal} setOpenModal={setOpenModal} onConfirm={handleCancelRequest}/>:null}
           <h2>요청 진행상황</h2>
           <div className="progress-detail">
-            <MyRequestStatus status={progressState}/>
+            <MyRequestStatus status={status}/>
             <p>청년들이 요청을 확인하는 중이에요!</p>
           </div>
           <div className="pending-btn">
-            <button className='fix-btn' onClick={()=>navigate('/myrequest/progress/edit')}>수정하기</button>
+            <button className='fix-btn' onClick={()=>navigate(`/myrequest/progress/edit/${requestId}`)}>수정하기</button>
             <button className='cancel-btn' onClick={()=>setOpenModal(true)}>취소하기</button>
           </div>
           <h2>내가 등록한 글</h2>
           <div className="myrequest-article">
             <h3>{requestDetails.title}</h3>
             <ul>
-              <li>{requestDetails.senior_info?.name || '000 어르신'} </li>
+              <li>{requestDetails.seniorInfo?.name || '000 어르신'} </li>
               <li> | </li>
               <li> {requestDetails.location}</li>
               <li> | </li>
-              <li> {formatKoreanDate(requestDetails.request_time)}</li>
+              <li> {formatKoreanDate(requestDetails.requestTime)}</li>
             </ul>
             <p>{requestDetails.description}</p>
           </div>
@@ -216,22 +266,22 @@ const MyRequestProgress = () => {
         <Navbar/>
       </div>
     )
-  } else if(progressState==='accepted'){
+  } else if(status==='matched'){
     return (
       <div className='myrequest-progress'>
         <Header title={'요청'}/>
         <div className="myrequest-progress-content">
           <h2>요청 진행상황</h2>
           <div className="progress-detail">
-            <MyRequestStatus status={progressState}/>
+            <MyRequestStatus status={status}/>
             <p>청년이 요청을 수락했어요!</p>
           </div>
           <div className="junior-profile">
-            <img src={requestDetails.junior_info?.profile_image_url || junior_img} alt="" className='junior-img'/>
+            <img src={requestDetails.juniorInfo?.profileImageUrl || junior_img} alt="" className='junior-img'/>
             <div className="junior-info">
-              <h2>{requestDetails.junior_info?.name || '000 청년'}</h2>
-              <h3>{requestDetails.junior_info?.introduce || '한 줄 소개'}</h3>
-              <h3>{requestDetails.junior_info?.phone_number}</h3>
+              <h2>{requestDetails.juniorInfo?.name || '000 청년'}</h2>
+              <h3>{requestDetails.juniorInfo?.introduce || '한 줄 소개'}</h3>
+              <h3>{requestDetails.juniorInfo?.phoneNumber}</h3>
             </div>
           </div>
           <button className='start-help-btn' onClick={handleStartHelp}>
@@ -242,11 +292,11 @@ const MyRequestProgress = () => {
           <div className="myrequest-article">
             <h3>{requestDetails.title}</h3>
             <ul>
-              <li>{requestDetails.senior_info?.name || '000 어르신'}</li>
+              <li>{requestDetails.seniorInfo?.name || '000 어르신'}</li>
               <li> | </li>
               <li> {requestDetails.location}</li>
               <li> | </li>
-              <li> {formatKoreanDate(requestDetails.request_time)}</li>
+              <li> {formatKoreanDate(requestDetails.requestTime)}</li>
             </ul>
             <p>
             {requestDetails.description.length > 25
@@ -258,22 +308,22 @@ const MyRequestProgress = () => {
         <Navbar/>
       </div>
     )
-  } else if(progressState==='in-progress'){
+  } else if(status==='in_progress'){
     return (
       <div className='myrequest-progress'>
         <Header title={'요청'}/>
         <div className="myrequest-progress-content">
           <h2>요청 진행상황</h2>
           <div className="progress-detail">
-            <MyRequestStatus status={progressState}/>
+            <MyRequestStatus status={status}/>
             <p>도움을 받는 중이에요!</p>
           </div>
           <div className="junior-profile">
-          <img src={requestDetails.junior_info?.profile_image_url || junior_img} alt="" className='junior-img'/>
+          <img src={requestDetails.juniorInfo?.profileImageUrl || junior_img} alt="" className='junior-img'/>
             <div className="junior-info">
-              <h2>{requestDetails.junior_info?.name || '000 청년'}</h2>
-              <h3>{requestDetails.junior_info?.introduce || '한 줄 소개'}</h3>
-              <h3>{requestDetails.junior_info?.phone_number}</h3>
+              <h2>{requestDetails.juniorInfo?.name || '000 청년'}</h2>
+              <h3>{requestDetails.juniorInfo?.introduce || '한 줄 소개'}</h3>
+              <h3>{requestDetails.juniorInfo?.phoneNumber}</h3>
             </div>
           </div>
           <button className='start-help-btn' onClick={handleCompleteHelp}>
@@ -284,11 +334,11 @@ const MyRequestProgress = () => {
           <div className="myrequest-article">
             <h3>{requestDetails.title}</h3>
             <ul>
-              <li>{requestDetails.senior_info?.name || '000 어르신'}</li>
+              <li>{requestDetails.seniorInfo?.name || '000 어르신'}</li>
               <li> | </li>
               <li> {requestDetails.location}</li>
               <li> | </li>
-              <li> {formatKoreanDate(requestDetails.request_time)}</li>
+              <li> {formatKoreanDate(requestDetails.requestTime)}</li>
             </ul>
             <p>
               {requestDetails.description.length > 25
@@ -300,7 +350,7 @@ const MyRequestProgress = () => {
         <Navbar/>
       </div>
     )
-  } else if(progressState==='completed_unreviewed'){
+  } else if(status==='completed_unreviewed'){
     return (
       <div className='myrequest-progress review'>
         <Header title={'요청'}/>
@@ -308,7 +358,7 @@ const MyRequestProgress = () => {
           <h2>도움받기 완료!</h2>
           <div className="junior-review-box">
             <img src={junior_img} alt="" className='junior-img'/>
-            <h2>{requestDetails.junior_info.name}</h2>
+            <h2>{requestDetails.juniorInfo.name}</h2>
           </div>
             <h3>청년의 도움이 어땠는지<br/>별점으로 알려주세요!</h3>
             <div className="star-box">
