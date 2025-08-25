@@ -1,74 +1,39 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, {useState, useMemo, useEffect} from 'react';
 import Header from '../../components/Header/Header';
 import Navbar from '../../components/Navbar/Navbar';
 import { useNavigate } from 'react-router-dom';
-import { getMyReviews } from '../../api/mypage';
-import './MyReviews.css'; 
-import { formatKoreanDateTime } from '../../utils/date';
-
-// 목업 
-/*
-const mockReviews = [
-  {
-    id: 1,
-    title: "핸드폰 화면 녹화하는 방법을 알려주세요!",
-    rating: 5,
-    place: "신수동 1번지",
-    time: "2025-08-07T15:00:00",
-    reviewText: "청년이 시작부터 끝까지 핸드폰 사용방식을 잘 알려줘요 친절해요 설명을 잘 합니다",
-  },
-  {
-    id: 2,
-    title: "키오스크 사용방법을 알려주세요",
-    rating: 5,
-    place: "대흥역 3번 출구",
-    time: "2025-08-08T10:30:00",
-    reviewText: "설명을 잘 합니다 잘 배웠습니다",
-  },
-  {
-    id: 3,
-    title: "지난 방송을 다시 보는 방법을 알려주세요!",
-    rating: 5,
-    place: "마포구청 근처",
-    time: "2025-08-09T14:00:00",
-    reviewText: "설명을 잘 합니다 잘 배웠습니다",
-  },
-];*/
+import './MyReviews.css';
 
 function StarRating({ rating }) {
   return (
     <div className="star-rating">
       {[...Array(5)].map((_, index) => {
-        const starClass = index < rating ? 'star-filled' : 'star-empty';
+        const starClass = index < Math.round(rating) ? 'star-filled' : 'star-empty';
         return <span key={index} className={`star ${starClass}`}>★</span>;
       })}
     </div>
   );
 }
-function ReviewCard({ item, onClick }) {
 
+function ReviewCard({ item }) {
   return (
     <div className="rev-card">
-      <h3 className="rev-title">{item.title}</h3>
-      <ul className="rev-meta">
-        <li><b>별점</b> <StarRating rating={item.rating} /></li>
-        <li><b>장소</b> {item.place}</li>
-        <li><b>일정</b> {formatKoreanDateTime(item.time)}</li>
-        <li className="rev-text"><b>후기</b> {item.reviewText}</li>
-      </ul>
-      <button className="rev-detail-btn" onClick={() => onClick(item)}>자세히 보기</button>
+      <div className="rev-meta">
+        <div className="rev-rating-line">
+          <b>별점</b> <StarRating rating={item.rating} />
+        </div>
+        <p className="rev-text">"{item.content}"</p>
+      </div>
     </div>
   );
 }
 
-
 export default function MyReviews() {
   const navigate = useNavigate();
-
-  //////////////
-  
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   const averageRating = useMemo(() => {
     if (list.length === 0) return 0;
     const total = list.reduce((sum, item) => sum + item.rating, 0);
@@ -77,50 +42,72 @@ export default function MyReviews() {
 
   useEffect(() => {
     const fetchReviews = async () => {
+      setLoading(true);
+      setError(null);
       try {
-        const res = await getMyReviews();
-        if (res.is_success) {
-          setList(res.review_list || []);
+        const API_BASE_URL = import.meta.env.VITE_API_URL;
+        const url = `${API_BASE_URL}/mypage/review`;
+        const token = localStorage.getItem('accessToken');
+
+        const response = await fetch(url, {
+          credentials: 'include',
+          headers: {
+            ...(token && { 'Authorization': `Bearer ${token}` })
+          }
+        });
+
+        if (!response.ok) {
+          throw new Error(`서버 에러 (HTTP ${response.status})`);
         }
-      } catch (error) {
-        console.error("받은 리뷰 목록을 불러오는 데 실패했습니다.", error);
+
+        const res = await response.json();
+
+        // [수정] 여러 형태의 성공 여부 키를 모두 확인합니다 (success, _success, is_success)
+        const isSuccess = res.success || res._success || res.is_success;
+
+        if (isSuccess) {
+          // [수정] 여러 형태의 데이터 위치를 모두 확인합니다.
+          // 1. 최상단에 review_list가 있는지 확인
+          // 2. 없다면, data 객체 안의 review_list를 확인
+          const reviews = res.review_list || res.data?.review_list || [];
+          setList(reviews);
+        } else {
+          throw new Error(res.message || '데이터 로딩 실패');
+        }
+      } catch (err) {
+        console.error("받은 리뷰 목록을 불러오는 데 실패했습니다.", err);
+        setError(err.message);
       } finally {
         setLoading(false);
       }
     };
     fetchReviews();
   }, []);
-  
-  if (loading) {
-    return <div>리뷰를 불러오는 중...</div>;
-  }
-  
-
-  //const list = useMemo(() => mockReviews, []);
-
-
-
-  const goDetail = (item) => {
-    sessionStorage.setItem("hr:lastItem", JSON.stringify(item));
-    navigate(`/mypage/reviews/${item.id}`, { state: item });
-  };
 
   return (
     <div className="hr-page">
       <div className="app-shell">
-        <Header title={'내 정보'}/>  
+        <Header title={'내 정보'} />
         <main className="rev-content">
           <div className="rev-header">
             <h2 className="rev-h2">내가 받은 후기</h2>
             <div className="rev-avg-rating">
               <span>{averageRating}</span>
-              <StarRating rating={Math.round(averageRating)} />
+              <StarRating rating={averageRating} />
             </div>
           </div>
           <div className="rev-list">
-            {list.map((item) => (
-              <ReviewCard key={item.id} item={item} onClick={goDetail} />
-            ))}
+            {loading ? (
+              <div className="status-message">리뷰를 불러오는 중...</div>
+            ) : error ? (
+              <div className="status-message error">{error}</div>
+            ) : list.length > 0 ? (
+              list.map((item) => (
+                <ReviewCard key={item.id} item={item} />
+              ))
+            ) : (
+              <div className="status-message">받은 후기가 없습니다.</div>
+            )}
           </div>
         </main>
         <Navbar />

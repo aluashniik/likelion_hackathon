@@ -63,19 +63,39 @@ export default function SeniorHelpList() {
 
   useEffect(() => {
     const fetchRequests = async () => {
+      setLoading(true);
       try {
-        const res = await getMyHelpRequests();
-        if (res.is_success) {
-          setList(res.help_list || []);
+        const API_BASE_URL = import.meta.env.VITE_API_URL;
+        const url = `${API_BASE_URL}/mypage/request`;
+        const token = localStorage.getItem('accessToken');
+
+        const response = await fetch(url, {
+          credentials: 'include',
+          headers: {
+            ...(token && { 'Authorization': `Bearer ${token}` })
+          }
+        });
+
+        if (!response.ok) {
+          throw new Error(`서버 에러 (HTTP ${response.status})`);
         }
-      } catch (error) {
-        console.error("도움 신청 내역을 불러오는 데 실패했습니다.", error);
-      } finally {
+
+        const res = await response.json();
+
+        if (res.is_success || res._success) {
+          setList(res.data?.help_list || []);
+        } else {
+          throw new Error(res.message || '데이터 로딩 실패');
+        }
+      }finally {
         setLoading(false);
       }
     };
+
     fetchRequests();
   }, []);
+
+
 
   if (loading) {
     return <div>목록을 불러오는 중...</div>;

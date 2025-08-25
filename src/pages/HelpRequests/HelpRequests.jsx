@@ -28,43 +28,36 @@ export default function HelpRequests() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchRequests = async () => {
+    const fetchAllRequests = async () => {
       setLoading(true);
       setError(null);
       try {
         const API_BASE_URL = import.meta.env.VITE_API_URL;
-        
 
-        let url = `${API_BASE_URL}/helpRequests`;
-
-        // 검색어(q)가 있을 때만 쿼리 파라미터를 추가
-        if (q) {
-          url += `?q=${encodeURIComponent(q)}`;
-        }
+        const url = `${API_BASE_URL}/helpRequests`;
+        const token = localStorage.getItem('accessToken');
 
         const response = await fetch(url, {
-          credentials: 'include'
+          credentials: 'include',
+          headers: {
+            ...(token && { 'Authorization': `Bearer ${token}` })
+          }
         });
 
         if (!response.ok) {
-          if (response.status === 401) {
-             throw new Error('로그인이 필요합니다. (401)');
-          }
-          // 500 에러를 포함한 다른 서버 에러 처리
-          throw new Error(`서버 에러가 발생했습니다. (HTTP ${response.status})`);
+          throw new Error(`서버 에러 (HTTP ${response.status})`);
         }
 
         const res = await response.json();
 
-        if (res.is_success) {
-          const listData = Array.isArray(res.data) ? res.data : res.data.items;
-          setApiList(listData || []);
+        if (res.is_success || res._success) {
+          setApiList(res.data?.items || []);
         } else {
-          throw new Error(res.message || '데이터를 가져오는데 실패했습니다.');
+          throw new Error(res.message || '데이터 로딩 실패');
         }
 
       } catch (error) {
-        console.error("도움 요청 목록을 불러오는 데 실패했습니다.", error);
+        console.error("전체 목록을 불러오는 데 실패했습니다.", error);
         setError(error.message);
         setApiList([]);
       } finally {
@@ -72,8 +65,12 @@ export default function HelpRequests() {
       }
     };
 
-    fetchRequests();
-  }, [q]);
+    fetchAllRequests();
+  }, []);
+
+  const filteredList = apiList.filter(item =>
+    item.title?.toLowerCase().includes(q.toLowerCase())
+  );
 
   return (
     <div className="hr-page">
@@ -97,8 +94,9 @@ export default function HelpRequests() {
               <div className="status-message">목록을 불러오는 중...</div>
             ) : error ? (
               <div className="status-message error">{error}</div>
-            ) : apiList.length > 0 ? (
-              apiList.map((item) => (
+            // 화면에는 apiList 대신 필터링된 filteredList를 사용
+            ) : filteredList.length > 0 ? (
+              filteredList.map((item) => (
                 <RequestCard
                   key={item.request_id}
                   item={item}

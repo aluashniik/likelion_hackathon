@@ -3,7 +3,6 @@ import "./HelpRequestsDetails.css";
 import Header from "../../components/Header/Header";
 import Navbar from "../../components/Navbar/Navbar";
 import { useLocation, useNavigate } from "react-router-dom";
-import howtoscreenshot from '../../assets/howtoscreenshot.png';
 import { formatSimpleDateTime } from "../../utils/date";
 
 export default function HelpRequestsDetails() {
@@ -21,9 +20,6 @@ export default function HelpRequestsDetails() {
   useEffect(() => {
     const initialItem = state || JSON.parse(sessionStorage.getItem('hr:lastItem'));
 
-    // [디버깅 코드 추가] useEffect 시작 시 initialItem 값을 콘솔에 출력합니다.
-    console.log("상세 페이지 데이터 확인:", initialItem);
-
     if (!initialItem?.request_id) {
       setError("요청 정보를 찾을 수 없습니다. 목록 페이지에서 다시 접근해주세요.");
       setLoading(false);
@@ -37,8 +33,13 @@ export default function HelpRequestsDetails() {
         const API_BASE_URL = import.meta.env.VITE_API_URL;
         const url = `${API_BASE_URL}/helpRequests/${initialItem.request_id}`;
 
+        const token = localStorage.getItem('accessToken');
+
         const response = await fetch(url, {
           credentials: 'include',
+          headers: {
+            ...(token && { 'Authorization': `Bearer ${token}` })
+          }
         });
 
         if (!response.ok) {
@@ -49,7 +50,8 @@ export default function HelpRequestsDetails() {
         }
 
         const res = await response.json();
-        if (res.is_success) {
+        // [수정] res.is_success 와 res._success를 모두 확인
+        if (res.is_success || res._success) {
           setDetailData(res.data);
         } else {
           throw new Error(res.message || "상세 정보를 가져오는데 실패했습니다.");
@@ -63,9 +65,7 @@ export default function HelpRequestsDetails() {
     };
 
     fetchDetails();
-    // 의존성 배열에서 state를 제거하여 불필요한 재실행을 방지하고,
-    // initialItem.request_id를 직접 사용하여 명확하게 만듭니다.
-  }, [state]); // location.state가 변경될 때만 재실행되도록 설정
+  }, [state]);
 
   const handleRequest = async () => {
     if (!detailData?.request_id) {
@@ -76,12 +76,14 @@ export default function HelpRequestsDetails() {
     try {
       const API_BASE_URL = import.meta.env.VITE_API_URL;
       const url = `${API_BASE_URL}/matches`; 
+      const token = localStorage.getItem('accessToken');
 
       const response = await fetch(url, {
         method: 'POST',
         credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
+          ...(token && { 'Authorization': `Bearer ${token}` })
         },
         body: JSON.stringify({
           request_id: detailData.request_id,
@@ -93,7 +95,7 @@ export default function HelpRequestsDetails() {
       }
 
       const res = await response.json();
-      if (res.is_success) {
+      if (res.is_success || res._success) {
         alert("요청을 수락했습니다!");
         setAccepted(true);
       } else {
@@ -117,6 +119,17 @@ export default function HelpRequestsDetails() {
     return <div>상세 데이터를 찾을 수 없습니다.</div>;
   }
 
+  // 소요 시간을 분 단위에서 "X시간 Y분" 형태로 변환하는 함수
+  const formatDuration = (minutes) => {
+    if (!minutes || minutes <= 0) return "정보 없음";
+    const h = Math.floor(minutes / 60);
+    const m = minutes % 60;
+    let result = '';
+    if (h > 0) result += `${h}시간 `;
+    if (m > 0) result += `${m}분`;
+    return result.trim();
+  };
+
   return (
     <div className="hr-page">
       <div className="app-shell">
@@ -128,7 +141,7 @@ export default function HelpRequestsDetails() {
             <dl className="hrd_meta">
               <div className="row">
                 <dt>요청자</dt>
-                <dd>{detailData.requester?.name || "OOO 어르신"}</dd>
+                <dd>{detailData.writer?.name || "정보 없음"}</dd>
               </div>
               <div className="row">
                 <dt>도움드릴 장소</dt>
@@ -140,7 +153,7 @@ export default function HelpRequestsDetails() {
               </div>
               <div className="row">
                 <dt>소요시간</dt>
-                <dd>{detailData.duration || "0시간 30분"}</dd>
+                <dd>{formatDuration(detailData.estimated_time_in_minutes)}</dd>
               </div>
               <div className="row">
                 <dt>요청사항</dt>
@@ -161,17 +174,45 @@ export default function HelpRequestsDetails() {
             </dl>
           </section>
 
-          {role === 'junior' && (
-            <button
-              className={`hrd-ct ${accepted ? "accepted" : ""}`}
-              onClick={handleRequest}
-              disabled={accepted}
-            >
-              {accepted ? "도움 요청 수락 완료!" : "도움 요청 수락하기"}
-            </button>
-          )}
-        </main>
-        <Navbar />
+        {/* 청년(Junior)을 위한 '수락' 버튼 */}
+        {detailData.ui_flags?.can_accept && (
+          <button
+            className={`hrd-ct ${accepted ? "accepted" : ""}`}
+            onClick={handleRequest}
+            disabled={accepted}
+          >
+            {accepted ? "도움 요청 수락 완료!" : "도움 요청 수락하기"}
+          </button>
+        )}
+
+        {/* 어르신(Senior, 작성자)을 위한 '수정'*/}
+        {(detailData.ui_flags?.can_edit || detailData.ui_flags?.can_cancel) && (
+          <div className="hrd-author-actions">
+            {/* {detailData.ui_flags.can_edit && (
+              <button
+                className="hrd-edit-btn"
+                onClick={() => navigate(detailData.routes.edit)}
+              >
+                수정하기
+              </button>
+            )} */}
+            {/* {detailData.ui_flags.can_cancel && (
+              <button
+                className="hrd-cancel-btn"
+                onClick={() => {
+                  if (window.confirm("정말로 이 요청을 취소하시겠습니까?")) {
+                    // handleCancelRequest(detailData.routes.cancel);
+                    alert("취소 API 호출 로직 연결이 필요합니다.");
+                  }
+                }}
+              >
+                요청 취소
+              </button>
+            )} */}
+          </div>
+        )}
+      </main>
+      <Navbar />
       </div>
     </div>
   );
