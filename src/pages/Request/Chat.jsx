@@ -10,10 +10,9 @@ import sendicon from "../../assets/send.png";
 export default function Chat() {
   const [text, setText] = useState("");
   const [msgs, setMsgs] = useState([]);
-  const [loading, setLoading] = useState(true); 
+  const [loading, setLoading] = useState(true);
 
   const [sessionId, setSessionId] = useState(null);
-  const [chatData, setChatData] = useState(null);
   const listRef = useRef(null);
   const fileInputRef = useRef(null);
   const navigate = useNavigate();
@@ -23,39 +22,25 @@ export default function Chat() {
     const initChat = async () => {
       try {
         setLoading(true);
-        //API 연동 부분
-        /*
         const res = await prepareChat();
-        if (res.is_success && res.data) {
+
+        if ((res.is_success || res._success) && res.data) {
           setSessionId(res.data.session_id);
+
+          const greetingText = res.data.greeting || "안녕하세요! 무엇을 도와드릴까요?";
+          const tipsText = res.data.tips ? res.data.tips.join("\n") : "";
+          const fullGreeting = `${greetingText}\n${tipsText}`;
+
           const initialBotMessage = {
             id: Date.now(),
             who: "bot",
-            t: res.data.greeting, 
+            t: fullGreeting,
             quickReplies: res.data.suggested_chats || [],
           };
           setMsgs([initialBotMessage]);
+        } else {
+          throw new Error(res.message || "채팅 데이터를 불러오는 데 실패했습니다.");
         }
-        */
-
-        // 목업 초기 메시지
-        const mockInitialMessage = {
-          id: 1, 
-          who: "bot", 
-          t: (
-            <>
-              <strong>안녕하세요!</strong>
-              {"\n무엇을 도와드릴까요?\n도움 요청 기기, 일시, 장소를 알려주세요!\n+ 를 누르면 사진을 첨부할 수 있어요!"}
-            </>
-          ),
-          quickReplies: [
-            "핸드폰 화면 녹화하는 방법을 알려주세요!",
-            "어플을 다운로드 받고싶어요!",
-          ],
-        };
-        setMsgs([mockInitialMessage]);
-        setSessionId("mock_session_123");
-
       } catch (error) {
         console.error("채팅 초기화에 실패했습니다.", error);
         const errorMessage = { id: Date.now(), who: "bot", t: "오류가 발생했습니다. 잠시 후 다시 시도해주세요." };
@@ -67,86 +52,81 @@ export default function Chat() {
     initChat();
   }, []);
 
-  //send 함수가 메시지를 인자로 받도록 수정
+  // 메시지 전송 함수
   const send = async (messageToSend) => {
     const userMessageText = messageToSend.trim();
     if (!userMessageText) return;
 
-    const userMessage = { 
-      id: Date.now(), 
-      who: "user", 
-      t: userMessageText 
+    const userMessage = {
+      id: Date.now(),
+      who: "user",
+      t: userMessageText
     };
     
     setMsgs(prev => [...prev, userMessage]);
     setText("");
 
-    //API 연동 부분
-    /*
     try {
       const res = await sendChatMessage(sessionId, userMessageText);
-      if (res.is_success && res.data) {
-        setChatData(res.data); 
+      if ((res.is_success || res._success) && res.data) {
         const botMessage = {
           id: Date.now() + 1,
           who: 'bot',
           t: res.data.bot_reply,
         };
         setMsgs(prev => [...prev, botMessage]);
+      } else {
+        throw new Error(res.message || "메시지 전송에 실패했습니다.");
       }
     } catch (error) {
       console.error("메시지 전송에 실패했습니다.", error);
-      const errorMessage = { id: Date.now() + 1, who: 'bot', t: '오류가 발생했습니다.' };
+      const errorMessage = { id: Date.now() + 1, who: 'bot', t: '메시지 전송 중 오류가 발생했습니다.' };
       setMsgs(prev => [...prev, errorMessage]);
     }
-    */
   };
 
   const handleQuickReply = (qrText) => {
     send(qrText);
   };
 
+  // 새 메시지 추가 시 스크롤을 맨 아래로 이동
   useEffect(() => {
     const el = listRef.current;
     if (el) el.scrollTop = el.scrollHeight;
   }, [msgs.length]);
 
+  // '정리하기' 버튼 클릭 핸들러-> api연결 후 주석으로 처리할것
   const handleSummarize = () => {
     const draft = makeDraftFromMessages(msgs);
     navigate("/request/chatconfirm", { state: { draft } });
   };
 
-  //파일 첨부 클릭시
-  const handleAttachClick = () =>{
+  // '+' 버튼 클릭 핸들러
+  const handleAttachClick = () => {
     fileInputRef.current.click();
   };
 
-  // 파일 선택 시 업로드 프로세스 실행
+  // 파일 선택 시 업로드 핸들러
   const handleFileChange = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
 
-    // API 연동 부분
-    /*
     try {
-      // 1단계: Presigned URL 요청
-      const presignRes = await getPresignedUrl({
+      const presignRes = await getPresignedURL({
         filename: file.name,
         content_type: file.type,
       });
 
-      if (presignRes.is_success && presignRes.data) {
+      if ((presignRes.is_success || presignRes._success) && presignRes.data) {
         const { upload_url, public_url, headers } = presignRes.data;
 
-        //2단계: 받은 URL로 실제 파일 업로드 (PUT 요청)
         const uploadResult = await fetch(upload_url, {
           method: 'PUT',
-          headers: headers, // 서버가 지정해준 헤더 사용
+          headers: headers,
           body: file,
         });
 
         if (uploadResult.ok) {
-          //3단계: 업로드 성공 후, 채팅창에 이미지 메시지 추가
           const imageMessage = {
             id: Date.now(),
             who: 'user',
@@ -157,32 +137,18 @@ export default function Chat() {
           throw new Error('클라우드 업로드 실패');
         }
       } else {
-        throw new Error('Presigned URL 발급 실패');
+        throw new Error(presignRes.message || 'Presigned URL 발급 실패');
       }
     } catch (error) {
       console.error("이미지 첨부 실패:", error);
       alert("이미지 첨부에 실패했습니다.");
     }
-    */
-    
-    //임시로 선택한 이미지를 미리보기로 보여주는 로직 
-    const reader = new FileReader();
-    reader.onloadend = () => {
-       const imageMessage = {
-        id: Date.now(),
-        who: 'user',
-        t: <img src={reader.result} alt="첨부 이미지" className="chat-image" />,
-      };
-      setMsgs(prev => [...prev, imageMessage]);
-    };
-    reader.readAsDataURL(file);
   };
-  
 
   return (
     <div className="hr-page">
       <div className="app-shell chat-shell">
-        <Header title={'채팅'}/>  
+        <Header title={'채팅'} />
         
         <main ref={listRef} className="chat-content">
           <div className="chat-date">{formatTodayTitle()}</div>
@@ -208,10 +174,9 @@ export default function Chat() {
             ))
           )}
         </main>
-        {/* ***************** */}
+        
         <div className="chat-composer">
-          {/* <button className="chat-attach" aria-label="첨부">+</button> */}
-          <input 
+          <input
             type="file"
             ref={fileInputRef}
             onChange={handleFileChange}
@@ -228,10 +193,10 @@ export default function Chat() {
               if (e.key === "Enter" && !e.shiftKey) {
                 e.preventDefault();
                 send(text);
-              } 
+              }
             }} />
           <button className="chat-send" onClick={() => send(text)} aria-label="전송">
-            <img className="send-icon" src={sendicon} />
+            <img className="send-icon" src={sendicon} alt="전송"/>
           </button>
           <button className="chat-summarize" onClick={handleSummarize}>정리하기</button>
         </div>

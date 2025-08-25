@@ -90,3 +90,4 @@ const FullLecture = () => {
 }
 
 export default FullLecture
+

@@ -40,7 +40,7 @@ export default function ChatConfirm() {
     //만약 현재 '수정 중' 상태였다면 (즉, '완료' 버튼을 누른 것이라면)
     if (edit[fieldName]) {
       //API 연동 부분
-      /*
+      
       const updateField = async () => {
         try {
           // 서버에 보낼 데이터 (수정된 필드만 포함)
@@ -56,7 +56,7 @@ export default function ChatConfirm() {
         }
       };
       updateField();
-      */
+      
     }
     setEdit((e) => ({ ...e, [fieldName]: !e[fieldName] }));
   };
@@ -71,10 +71,10 @@ export default function ChatConfirm() {
     const file = e.target.files[0];
     if(!file) return;
     // --- API 연동 부분 (주석 처리) ---
-    /*
+    
     try {
       // 1. Presigned URL 요청
-      const presignRes = await getPresignedUrl({ filename: file.name, content_type: file.type });
+      const presignRes = await getPresignedURL({ filename: file.name, content_type: file.type });
       if (presignRes.is_success) {
         const { upload_url, public_url, headers } = presignRes.data;
 
@@ -90,7 +90,7 @@ export default function ChatConfirm() {
       console.error("이미지 첨부 실패:", error);
       alert("이미지 첨부에 실패했습니다.");
     }
-    */
+    
    
     //임시로 선택한 이미지
     const reader = new FileReader();
@@ -110,7 +110,7 @@ export default function ChatConfirm() {
 
   //"요청글 등록하기" 버튼 클릭 시 API를 호출하도록
   const submit = async () => { 
-    /*
+    
     try {
       const payload = {
         title: form.title,
@@ -132,7 +132,6 @@ export default function ChatConfirm() {
       console.error("요청글 등록 실패:", error);
       alert("요청글 등록에 실패했습니다. 다시 시도해주세요.");
     }
-    */
     navigate("/request/chatcomplete", { state: { data: form } });
   };
 
